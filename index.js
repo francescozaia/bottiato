@@ -101,6 +101,8 @@ var senderID = event.sender.id;
       case 'Cantami':
         sendCanzone(senderID);
         break;
+      case 'prova':
+        sendTextMessage(senderID, 'teleGattone');
       default:
         sendTextMessage(senderID, messageText);
     }
