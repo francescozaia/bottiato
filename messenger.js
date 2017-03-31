@@ -1,5 +1,5 @@
 var request = require('request'),
-  fs = require('fs');
+    fs = require('fs');
 
 var obj = JSON.parse(fs.readFileSync('/home/gituser/bottiato/frasi.json', 'utf8'));
 
@@ -56,31 +56,16 @@ module.exports = {
           type: "template",
           payload: {
             template_type: "generic",
-            elements: [
-              {
-                "title": "Welcome to Peter\'s Hats",
-                "image_url": "https://petersfancybrownhats.com/company_image.png",
-                "subtitle": "We\'ve got the right hat for everyone.",
-                "default_action": {
-                  "type": "web_url",
-                  "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
-                  "messenger_extensions": true,
-                  "webview_height_ratio": "tall",
-                  "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                },
-                "buttons": [
-                  {
-                    "type": "web_url",
-                    "url": "https://petersfancybrownhats.com",
-                    "title": "View Website"
-                  }, {
-                    "type": "postback",
-                    "title": "Start Chatting",
-                    "payload": "DEVELOPER_DEFINED_PAYLOAD"
-                  }
-                ]
-              }
-            ]
+            elements: [{
+              title: "Cuccurucucu",
+              subtitle: "Bottiato",
+              item_url: "https://www.youtube.com/watch?v=GuB3f70cYnM",
+              buttons: [{
+                type: "web_url",
+                url: "https://www.youtube.com/watch?v=GuB3f70cYnM",
+                title: "Vedi il video di cuccurucucu"
+              }],
+            }]
           }
         }
       }
