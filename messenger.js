@@ -1,5 +1,5 @@
 module.exports = {
-  
+
   receivedMessage: function (event) {
     console.log("Message data: ", event.message);
     var senderID = event.sender.id;
@@ -80,7 +80,7 @@ module.exports = {
       }
     };
 
-    callSendAPI(messageData);
+    this.callSendAPI(messageData);
   },
 
   sendTextMessage: function (recipientId, messageText) {
@@ -93,7 +93,7 @@ module.exports = {
       }
     };
 
-    callSendAPI(messageData);
+    this.callSendAPI(messageData);
   },
 
   sendCanzone: function (recipientId) {
@@ -113,7 +113,7 @@ module.exports = {
         text: canzone
       }
     };
-    callSendAPI(messageData);
+    this.callSendAPI(messageData);
   },
 
   callSendAPI: function callSendAPI(messageData) {
