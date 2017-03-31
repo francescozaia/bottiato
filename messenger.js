@@ -1,4 +1,7 @@
-var request = require('request');
+var request = require('request'),
+    fs = require('fs');
+
+var obj = JSON.parse(fs.readFileSync('/home/gituser/bottiato/frasi.json', 'utf8'));
 
 module.exports = {
 
@@ -23,12 +26,17 @@ module.exports = {
       // If we receive a text message, check to see if it matches a keyword
       // and send back the example. Otherwise, just echo the text we received.
       switch (messageText) {
-        case 'generic':
-          sendGenericMessage(senderID);
+        case 'mostra':
+        case 'Mostra':
+        case 'mostrami':
+        case 'Mostrami':
+          this.sendGenericMessage(senderID);
           break;
+        case 'canta':
+        case 'Canta':
         case 'cantami':
         case 'Cantami':
-          sendCanzone(senderID);
+          this.sendCanzone(senderID);
           break;
         default:
           this.sendTextMessage(senderID, messageText);
@@ -106,7 +114,9 @@ module.exports = {
       "Segnali di vita nei cortili e nelle case all'imbrunire, le luci fanno ricordare le meccaniche celesti."
     ];
 
-    var canzone = canzoni[Math.floor(Math.random() * canzoni.length)];
+    canzoni = obj;
+
+    var canzone = canzoni[Math.floor(Math.random() * canzoni.length)].strofa;
     var messageData = {
       recipient: {
         id: recipientId
