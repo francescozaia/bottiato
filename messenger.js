@@ -25,17 +25,13 @@ module.exports = {
 
       // If we receive a text message, check to see if it matches a keyword
       // and send back the example. Otherwise, just echo the text we received.
-      switch (messageText) {
+      switch (messageText.toLowerCase()) {
         case 'mostra':
-        case 'Mostra':
         case 'mostrami':
-        case 'Mostrami':
           this.sendGenericMessage(senderID);
           break;
         case 'canta':
-        case 'Canta':
         case 'cantami':
-        case 'Cantami':
           this.sendCanzone(senderID);
           break;
         default:
@@ -58,12 +54,11 @@ module.exports = {
             template_type: "generic",
             elements: [{
               title: "Cuccurucucu",
-              subtitle: "Bottiato",
-              item_url: "https://www.youtube.com/watch?v=GuB3f70cYnM",
+              image_url: "https://secure.canecanuto.com/canzone-cuccurucucu.jpg",
               buttons: [{
                 type: "web_url",
                 url: "https://www.youtube.com/watch?v=GuB3f70cYnM",
-                title: "Vedi il video di cuccurucucu"
+                title: "Vediti il video"
               }],
             }]
           }
