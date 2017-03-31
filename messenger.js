@@ -26,16 +26,12 @@ module.exports = {
       // If we receive a text message, check to see if it matches a keyword
       // and send back the example. Otherwise, just echo the text we received.
       switch (messageText.toLowerCase()) {
-        case 'mostra':
-        case 'mostrami':
+        case 'video':
           this.sendGenericMessage(senderID);
           break;
-        case 'canta':
-        case 'cantami':
-          this.sendCanzone(senderID);
-          break;
         default:
-          this.sendTextMessage(senderID, messageText);
+          //this.sendTextMessage(senderID, messageText);
+          this.sendCanzone(senderID);
       }
     } else if (messageAttachments) {
       this.sendTextMessage(senderID, "Message with attachment received");
