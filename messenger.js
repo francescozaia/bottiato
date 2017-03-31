@@ -1,4 +1,5 @@
 module.exports = {
+  
   receivedMessage: function (event) {
     console.log("Message data: ", event.message);
     var senderID = event.sender.id;
@@ -28,10 +29,10 @@ module.exports = {
           sendCanzone(senderID);
           break;
         default:
-          sendTextMessage(senderID, messageText);
+          this.sendTextMessage(senderID, messageText);
       }
     } else if (messageAttachments) {
-      sendTextMessage(senderID, "Message with attachment received");
+      this.sendTextMessage(senderID, "Message with attachment received");
     }
   },
 
