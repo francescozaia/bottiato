@@ -1,5 +1,7 @@
-module.exports = {
+var request = require('request'),
 
+module.exports = {
+  
   receivedMessage: function (event) {
     console.log("Message data: ", event.message);
     var senderID = event.sender.id;
