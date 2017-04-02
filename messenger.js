@@ -105,7 +105,12 @@ module.exports = {
         return word && word[0].length > 3;
     });
 
-    var filtered = arr.filter(cond);
+    var filtered = [];
+    filtered = arr.filter(cond);
+
+    var canzone = filtered[0];
+
+    if (canzone === '') canzone = "niente da fare"
 
     //var canzone = arr[Math.floor(Math.random() * arr.length)];
     var messageData = {
