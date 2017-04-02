@@ -1,7 +1,7 @@
 var request = require('request'),
     fs = require('fs');
 
-var obj = JSON.parse(fs.readFileSync('/home/gituser/bottiato/frasi.json', 'utf8'));
+var obj = JSON.parse(fs.readFileSync('/home/gituser/bottiato/strofe.json', 'utf8'));
 
 module.exports = {
 
