@@ -39,7 +39,7 @@ module.exports = {
           this.sendCanzone(senderID, messageText);
       }
     } else if (messageAttachments) {
-      this.sendTextMessage(senderID, "Message with attachment received");
+      this.sendTextMessage(senderID, "Che si fa con i messaggi speciali tipo adesso?");
     }
   },
 
@@ -110,7 +110,7 @@ module.exports = {
 
     var canzone = filtered[0];
 
-    if (!canzone || canzone === '') canzone = "non c'è... (frase random?)";
+    if (!canzone || canzone === '') canzone = "Che si fa quando non c'è una corrispondenza tipo adesso?";
 
     //var canzone = arr[Math.floor(Math.random() * arr.length)];
     var messageData = {
