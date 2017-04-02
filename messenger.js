@@ -110,7 +110,7 @@ module.exports = {
 
     var canzone = filtered[0];
 
-    if (canzone === '') canzone = "niente da fare"
+    if (!canzone || canzone === '') canzone = "niente da fare";
 
     //var canzone = arr[Math.floor(Math.random() * arr.length)];
     var messageData = {
