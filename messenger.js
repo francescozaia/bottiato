@@ -3,6 +3,11 @@ var request = require('request'),
 
 var obj = JSON.parse(fs.readFileSync('/home/gituser/bottiato/strofe.json', 'utf8'));
 
+var arr = [];
+for (var i=0; i<obj.length; i++) {
+    arr.push(obj[i].strofa);
+}
+
 module.exports = {
 
   receivedMessage: function (event) {
@@ -31,7 +36,7 @@ module.exports = {
           break;
         default:
           //this.sendTextMessage(senderID, messageText);
-          this.sendCanzone(senderID);
+          this.sendCanzone(senderID, messageText);
       }
     } else if (messageAttachments) {
       this.sendTextMessage(senderID, "Message with attachment received");
@@ -78,17 +83,31 @@ module.exports = {
     this.callSendAPI(messageData);
   },
 
-  sendCanzone: function (recipientId) {
-    var canzoni = [
-      "Ho avuto molte donne in vita mia, e in ogni camera ho lasciato qualche mia energia.",
-      "E giorni di digiuno e di silenzio, per fare i cori nelle messe tipo Amanda Lear.",
-      "Le barricate in piazza le fai per conto della borghesia, che crea falsi miti di progresso.",
-      "Segnali di vita nei cortili e nelle case all'imbrunire, le luci fanno ricordare le meccaniche celesti."
-    ];
+  sendCanzone: function (recipientId, messageText) {
 
-    canzoni = obj;
+    function cond(item) {
+      for (var i = 0; i<messageTextWordsArray.length; i++) {
+          //RegExp('\\b'+ word +'\\b').test(str)
+          var myPattern = new RegExp('\\b'+ messageTextWordsArray[i] +'\\b','gi'); // ho aggiunto gli spazi
+          //console.log(test[i])
+          var matches = item.match(myPattern);
+          
+          if (matches !== null) {
+              console.log("..." + matches)
+              return true;
+          }
+              
+      }
+  }
 
-    var canzone = canzoni[Math.floor(Math.random() * canzoni.length)].strofa;
+    var messageTextWordsArray = messageText.split(' ').filter(function ( frase ) {
+        var word = frase.match(/(\w+)/);
+        return word && word[0].length > 3;
+    });
+
+    var filtered = arr.filter(cond);
+
+    //var canzone = arr[Math.floor(Math.random() * arr.length)];
     var messageData = {
       recipient: {
         id: recipientId
