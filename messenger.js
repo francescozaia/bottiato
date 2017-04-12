@@ -5,152 +5,188 @@ var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/jso
 
 module.exports = {
 
-  receivedMessage: function (event) {
-    var senderID = event.sender.id;
-    var recipientID = event.recipient.id;
-    var timeOfMessage = event.timestamp;
-    var message = event.message;
+    getUserFirstName:function(id) {
+        var usersPublicProfile = 'https://graph.facebook.com/v2.6/' + id + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD';
+        request({
+            url: usersPublicProfile,
+            json: true // parse
+        }, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                console.log('Hi ' + body.first_name);
+                return body.first_name;
+            }
+        });
+    },
 
-    console.log("Received message for user %d and page %d at %d with message:",
-      senderID, recipientID, timeOfMessage);
-    console.log(JSON.stringify(message));
+    receivedMessage: function (event) {
+        var senderID = event.sender.id;
+        var recipientID = event.recipient.id;
+        var timeOfMessage = event.timestamp;
+        var message = event.message;
 
-    var messageId = message.mid;
-    var messageText = message.text;
-    var messageAttachments = message.attachments;
+        console.log("Received message for user %d and page %d at %d with message:",
+            senderID, recipientID, timeOfMessage);
+        console.log(JSON.stringify(message));
 
-    if (messageText) {
-      switch (messageText.toLowerCase()) {
-        case 'video':
-          this.sendVideoMessage(senderID);
-          break;
-        case 'special':
-          this.sendSpecialMessage(senderID, messageText);
-          break;
-        default:
-          //this.sendTextMessage(senderID, messageText);
-          this.sendCanzone(senderID, messageText);
-      }
-    } else if (messageAttachments) {
-      this.sendTextMessage(senderID, "Che si fa con i messaggi speciali tipo adesso?");
-    }
-  },
+        var messageId = message.mid;
+        var messageText = message.text;
+        var messageAttachments = message.attachments;
 
-  sendVideoMessage: function (recipientId) {
-    var messageData = {
-      recipient: {
-        id: recipientId
-      },
-      message: {
-        attachment: {
-          type: "template",
-          payload: {
-            template_type: "generic",
-            elements: [{
-              title: "Cuccurucucu",
-              image_url: "https://secure.canecanuto.com/canzone-cuccurucucu.jpg",
-              buttons: [{
-                type: "web_url",
-                url: "https://www.youtube.com/watch?v=GuB3f70cYnM",
-                title: "Vediti il video"
-              }],
-            }]
-          }
+        if (messageText) {
+            switch (messageText.toLowerCase().replace(/!/g,'').trim()) {
+                case 'ciao':
+                case 'buongiorno':
+                case 'hey':
+                case 'ei':
+                case 'hei':
+                case 'ehi':
+                case 'ehilà':
+                    this.sendSaluto(senderID);
+                    break;
+                case 'video':
+                    this.sendVideoMessage(senderID);
+                    break;
+                case 'special':
+                    this.sendSpecialMessage(senderID, messageText);
+                    break;
+                default:
+                    this.sendCanzone(senderID, messageText);
+            }
+        } else if (messageAttachments) {
+            this.sendSimpleTextMessage(senderID, "Che si fa con i messaggi speciali tipo adesso?");
         }
-      }
-    };
+    },
+    sendSaluto: function (recipientId) {
+        var userFirstName = getUserFirstName(recipientId);
 
-    this.callSendAPI(messageData);
-  },
+        this.callSendAPI({
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: "Ciao " + userFirstName
+            }
+        });
 
-  sendTextMessage: function (recipientId, messageText) {
-    var messageData = {
-      recipient: {
-        id: recipientId
-      },
-      message: {
-        text: messageText
-      }
-    };
+        var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
 
-    this.callSendAPI(messageData);
-  },
+        this.callSendAPI({
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: rilancione
+            }
+        });
+    },
+    sendVideoMessage: function (recipientId) {
+        this.callSendAPI({
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                attachment: {
+                    type: "template",
+                    payload: {
+                        template_type: "generic",
+                        elements: [{
+                            title: "Cuccurucucu",
+                            image_url: "https://secure.canecanuto.com/canzone-cuccurucucu.jpg",
+                            buttons: [{
+                                type: "web_url",
+                                url: "https://www.youtube.com/watch?v=GuB3f70cYnM",
+                                title: "Vediti il video"
+                            }]
+                        }]
+                    }
+                }
+            }
+        });
+    },
+
+    sendSimpleTextMessage: function (recipientId, messageText) {
+        this.callSendAPI({
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: messageText
+            }
+        });
+    },
 
     sendSpecialMessage: function (recipientId, messageText) {
-        var messageData = {
+        this.callSendAPI({
             recipient: {
                 id: recipientId
             },
             message: {
                 text: messageText + " yo!"
             }
-        };
+        });
+    },
 
-        this.callSendAPI(messageData);
+    sendCanzone: function (recipientId, messageText) {
 
-        var lancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
-        console.log("lancione: " + lancione);
+        function filteringCondition(item) {
+            for (var i = 0; i < messageTextWordsArray.length; i++) {
+                var myPattern = new RegExp('\\b' + messageTextWordsArray[i] + '\\b', 'gi'); // ho aggiunto gli spazi
+                var matches = item.match(myPattern);
+                if (matches !== null) {
+                    return true;
+                }
+            }
+        }
 
-        var messageData = {
+        var messageTextWordsArray = messageText.split(' ').filter(function (frase) {
+            var word = frase.match(/(\w+)/);
+            return word && word[0].length > 3;
+        });
+
+        var filtered = [];
+        filtered = battiatoBeatsObject["songs"].filter(filteringCondition);
+
+        var canzone = filtered[0];
+
+        if (!canzone || canzone === '') {
+            // se non c'è corrispondenza vai di random
+            canzone = battiatoBeatsObject["songs"][Math.floor(Math.random() * battiatoBeatsObject["songs"].length)];
+        }
+
+        this.callSendAPI({
             recipient: {
                 id: recipientId
             },
             message: {
-                text: lancione
+                text: canzone
             }
-        };
-        this.callSendAPI(messageData);
+        });
+
+        var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
+
+        this.callSendAPI({
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: rilancione
+            }
+        });
     },
 
-  sendCanzone: function (recipientId, messageText) {
-
-    function filteringCondition(item) {
-      for (var i = 0; i<messageTextWordsArray.length; i++) {
-          var myPattern = new RegExp('\\b'+ messageTextWordsArray[i] +'\\b','gi'); // ho aggiunto gli spazi
-          var matches = item.match(myPattern);
-          if (matches !== null) {
-              return true;
-          }
-      }
-    }
-
-    var messageTextWordsArray = messageText.split(' ').filter(function ( frase ) {
-        var word = frase.match(/(\w+)/);
-        return word && word[0].length > 3;
-    });
-
-    var filtered = [];
-    filtered = battiatoBeatsObject["songs"].filter(filteringCondition);
-
-    var canzone = filtered[0];
-
-    if (!canzone || canzone === '') canzone = "Che si fa quando non c'è una corrispondenza tipo adesso?";
-
-    //var canzone = battiatoBeatsObject["songs"][Math.floor(Math.random() * battiatoBeatsObject["songs"].length)];
-    var messageData = {
-      recipient: {
-        id: recipientId
-      },
-      message: {
-        text: canzone
-      }
-    };
-    this.callSendAPI(messageData);
-  },
-
-    sendGreetingText: function() {
+    sendGreetingText: function () {
         var greetingData = {
             setting_type: "greeting",
-            greeting:{
-                text:"Ave a te {{user_first_name}}, come ti senti oggi?"
+            greeting: {
+                text: "Ave a te {{user_first_name}}, come ti senti oggi?"
             }
         };
         this.createGreetingApi(greetingData);
     },
-    createGreetingApi: function(data) {
+    createGreetingApi: function (data) {
         request({
             uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
-            qs: { access_token: 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD' },
+            qs: {access_token: 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD'},
             method: 'POST',
             json: data
 
@@ -163,27 +199,27 @@ module.exports = {
         });
     },
 
-  callSendAPI: function callSendAPI(messageData) {
-    request({
-      uri: 'https://graph.facebook.com/v2.6/me/messages',
-      qs: { access_token: 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD' },
-      method: 'POST',
-      json: messageData
+    callSendAPI: function callSendAPI(messageData) {
+        request({
+            uri: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: {access_token: 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD'},
+            method: 'POST',
+            json: messageData
 
-    }, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var recipientId = body.recipient_id;
-        var messageId = body.message_id;
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var recipientId = body.recipient_id;
+                var messageId = body.message_id;
 
-        console.log("Successfully sent generic message with id %s to recipient %s",
-          messageId, recipientId);
-      } else {
-        console.error("Unable to send message.");
-        console.error(response);
-        console.error(error);
-      }
-    });
-  }
+                console.log("Successfully sent generic message with id %s to recipient %s",
+                    messageId, recipientId);
+            } else {
+                console.error("Unable to send message.");
+                console.error(response);
+                console.error(error);
+            }
+        });
+    }
 
 };
 

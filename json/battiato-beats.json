@@ -1,4 +1,7 @@
 {
+  "greetings": [
+    ""
+  ],
   "songs": [
     "Un uomo di una certa età mi offriva spesso sigarette turche.",
     "Spero che ritorni presto l’Era del Cinghiale Bianco.",
@@ -82,7 +85,6 @@
     "Mille volte tu dicesti basta, mille volte io me ne andai via.",
     "Ed ogni mobile ricorda, in questa stanza senza culla, i lampi dei vecchi contrasti.",
     "Non c’era più una cosa giusta, avevi perso il tuo calore, ed io la febbre di conquista.",
-    "Mio amore mio dolce meraviglioso amore, dall’alba chiara finché il giorno muore, ti amo ancora sai ti amo.",
     "So tutto delle tue magie, e tu della mia intimità.",
     "Sapevo delle tue bugie, tu delle mie tristi viltà.",
     "So che hai avuto degli amanti, bisogna pur passare il tempo, bisogna pur che il corpo esulti.",
@@ -116,9 +118,7 @@
     "Insieme a te non ci sto più, guardo le nuvole lassù",
     "E quando andrò devi sorridermi se puoi",
     "non sarà facile ma sai si muore un po’ per poter vivere.",
-    "Arrivederci amore ciao",
-    "Le nubi sono già più in là",
-    "Finisce qua chi se ne va che male fa.",
+    "Arrivederci amore ciao, le nubi sono già più in là. Finisce qua chi se ne va che male fa.",
     "Povera patria! Schiacciata dagli abusi del potere, di gente infame, che non sa cos’è il pudore,",
     "Si credono potenti e gli va bene quello che fanno; e tutto gli appartiene.",
     "Tra i governanti, quanti perfetti e inutili buffoni!",
@@ -149,7 +149,7 @@
     "Nei vestiti bianchi a ruota... Echi delle danze sufi...",
     "Nelle metro giapponesi, oggi, macchine d’Ossigeno.",
     "Più diventa tutto inutile e più credi che sia vero.",
-    "e il giorno della fine non ti servirà l’Inglese.",
+    "E il giorno della fine non ti servirà l’Inglese.",
     "E sulle biciclette verso casa, la vita ci sfiorò.",
     "ma il Re del Mondo ci tiene prigioniero il Cuore.",
     "Ndo vadduni da Scammacca, i carritteri ogni tantu lassaunu i loru bisogni e i muscuni ciabbulaunu supra",
@@ -235,7 +235,7 @@
     "Poi guardavamo con le facce assenti la grazia innaturale di Nijinsky.",
     "E poi di lui si innamorò perdutamente il suo impresario, e dei balletti russi.",
     "L’inverno con la mia generazione, le donne curve sui telai vicine alle finestre",
-    "un giorno sulla prospettiva Nevski per caso vi incontrai Igor Stravinsky",
+    "Un giorno sulla prospettiva Nevski per caso vi incontrai Igor Stravinsky",
     "Gli orinali messi sotto i letti per la notte e un film di Ejzenstejn sulla rivoluzione.",
     "E studiavamo chiusi in una stanza, la luce fioca di candele e lampade a petrolio",
     "E quando si trattava di parlare aspettavamo sempre con piacere",
@@ -362,7 +362,6 @@
     "Vi saluto, amici, ci vedremo domani, se la notte non fa il suo colpo stanotte.",
     "Trombe irreali, ululano cani, si sentono. Odo marcette militari.",
     "Nel ’43, ero malato, vidi tutta la mia vita sudato scorreva finita.",
-    "Vi saluto, amici, ci vedremo domani, se la notte non fa il suo colpo stanotte.",
     "Cerimonioso, entro nel suo centro vitale. L’armatura rimanda la Luce Originale.",
     "Guerriero della vita, sospendo le armi e la battaglia.",
     "Birra e urina si scambiano le parti: la latrina é il tuo caveau. Liquido vitale scorre in entrambe. Regalo della notte, piccolo pub.",
