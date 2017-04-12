@@ -63,9 +63,10 @@ module.exports = {
         }
     },
     sendSaluto: function (recipientId) {
-
+        var cSa = this.callSendAPI
         this.getUserFirstName(recipientId, function (er, data) {
-            this.callSendAPI({
+            console.log("inside" + data);
+            cSa({
                 recipient: {
                     id: recipientId
                 },
@@ -76,7 +77,7 @@ module.exports = {
 
             var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
 
-            this.callSendAPI({
+            cSa({
                 recipient: {
                     id: recipientId
                 },
