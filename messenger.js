@@ -82,7 +82,7 @@ module.exports = {
                 id: recipientId
             },
             message: {
-                text: messageText
+                text: messageText + " yo!"
             }
         };
 
