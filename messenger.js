@@ -145,7 +145,7 @@ module.exports = {
                 text:"Ave a te {{user_first_name}}, come ti senti oggi?"
             }
         };
-        createGreetingApi(greetingData);
+        this.createGreetingApi(greetingData);
     },
     createGreetingApi: function(data) {
         request({
