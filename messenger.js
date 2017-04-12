@@ -76,16 +76,20 @@ module.exports = {
                 }
             });
 
-            var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
+            setTimeout(function() {
+                var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
 
-            c({
-                recipient: {
-                    id: recipientId
-                },
-                message: {
-                    text: rilancione
-                }
-            });
+                c({
+                    recipient: {
+                        id: recipientId
+                    },
+                    message: {
+                        text: rilancione
+                    }
+                });
+            }, 2000);
+
+
         });
     },
     sendVideoMessage: function (recipientId) {
