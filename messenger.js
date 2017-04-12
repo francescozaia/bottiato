@@ -91,7 +91,6 @@ module.exports = {
                 });
             }, 2000);
 
-
         });
     },
     sendVideoMessage: function (recipientId) {
