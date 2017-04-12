@@ -57,7 +57,7 @@ module.exports = {
         }
     },
     sendSaluto: function (recipientId) {
-        var userFirstName = getUserFirstName(recipientId);
+        var userFirstName = this.getUserFirstName(recipientId);
 
         this.callSendAPI({
             recipient: {
