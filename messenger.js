@@ -1,12 +1,14 @@
 var request = require('request'),
     fs = require('fs');
 
+var ACCESS_TOKEN = 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD';
+
 var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/json/battiato-beats.json', 'utf8'));
 
 module.exports = {
 
     getUserFirstName:function(id) {
-        var usersPublicProfile = 'https://graph.facebook.com/v2.6/' + id + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD';
+        var usersPublicProfile = 'https://graph.facebook.com/v2.6/' + id + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + ACCESS_TOKEN;
 
 
         return new Promise(function (resolve, reject) {
@@ -199,7 +201,7 @@ module.exports = {
     createGreetingApi: function (data) {
         request({
             uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
-            qs: {access_token: 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD'},
+            qs: {access_token: ACCESS_TOKEN},
             method: 'POST',
             json: data
 
@@ -215,7 +217,7 @@ module.exports = {
     callSendAPI: function callSendAPI(messageData) {
         request({
             uri: 'https://graph.facebook.com/v2.6/me/messages',
-            qs: {access_token: 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD'},
+            qs: {access_token: ACCESS_TOKEN},
             method: 'POST',
             json: messageData
 
