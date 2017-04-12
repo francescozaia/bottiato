@@ -89,6 +89,15 @@ module.exports = {
         this.callSendAPI(messageData);
         var lancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
         console.log("lancione: " + lancione);
+
+        var messageData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: lancione
+            }
+        };
         this.callSendAPI(lancione);
     },
 
