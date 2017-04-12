@@ -7,15 +7,21 @@ module.exports = {
 
     getUserFirstName:function(id) {
         var usersPublicProfile = 'https://graph.facebook.com/v2.6/' + id + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD';
-        request({
-            url: usersPublicProfile,
-            json: true // parse
-        }, function (error, response, body) {
-            if (!error && response.statusCode === 200) {
-                console.log('Hi ' + body.first_name);
-                return body.first_name;
-            }
-        });
+
+
+        return new Promise(function (resolve, reject) {
+            request({
+                url: usersPublicProfile,
+                json: true // parse
+            }, function (error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    console.log('Hi ' + body.first_name);
+                    resolve(body.first_name)
+                } else {
+                    return reject(error)
+                }
+            });
+        })
     },
 
     receivedMessage: function (event) {
@@ -57,27 +63,30 @@ module.exports = {
         }
     },
     sendSaluto: function (recipientId) {
-        var userFirstName = this.getUserFirstName(recipientId);
 
-        this.callSendAPI({
-            recipient: {
-                id: recipientId
-            },
-            message: {
-                text: "Ciao " + userFirstName
-            }
-        });
+        this.getUserFirstName(recipientId, function (er, data) {
+            this.callSendAPI({
+                recipient: {
+                    id: recipientId
+                },
+                message: {
+                    text: "Ciao " + data
+                }
+            });
 
-        var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
+            var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
 
-        this.callSendAPI({
-            recipient: {
-                id: recipientId
-            },
-            message: {
-                text: rilancione
-            }
-        });
+            this.callSendAPI({
+                recipient: {
+                    id: recipientId
+                },
+                message: {
+                    text: rilancione
+                }
+            });
+        })
+
+
     },
     sendVideoMessage: function (recipientId) {
         this.callSendAPI({
