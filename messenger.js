@@ -1,12 +1,9 @@
 var request = require('request'),
     fs = require('fs');
 
-var obj = JSON.parse(fs.readFileSync('/home/gituser/bottiato/strofe.json', 'utf8'));
+var obj = JSON.parse(fs.readFileSync('/home/gituser/bottiato/json/battiato-beats.json', 'utf8'));
 
-var arr = [];
-for (var i=0; i<obj.length; i++) {
-    arr.push(obj[i].strofa);
-}
+var arr = obj.songs;
 
 module.exports = {
 
