@@ -64,9 +64,7 @@ module.exports = {
     },
     sendSaluto: function (recipientId) {
         var promise = this.getUserFirstName(recipientId);
-        promise.then(this.vai, recipientId);
-    },
-    vai : function(uno, recipientId){
+        promise.then(function(uno, recipientId){
             console.log("inside" + uno + "..." + recipientId);
             this.callSendAPI({
                 recipient: {
@@ -87,6 +85,7 @@ module.exports = {
                     text: rilancione
                 }
             });
+        });
     },
     sendVideoMessage: function (recipientId) {
         this.callSendAPI({
