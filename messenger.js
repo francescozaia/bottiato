@@ -64,16 +64,16 @@ module.exports = {
     },
     sendSaluto: function (recipientId) {
         var promise = this.getUserFirstName(recipientId);
-        promise.then(this.vai);
+        promise.then(this.vai, recipientId);
     },
-    vai : function(uno, due){
-            console.log("inside" + uno + "..." + due);
+    vai : function(uno, recipientId){
+            console.log("inside" + uno + "..." + recipientId);
             this.callSendAPI({
                 recipient: {
                     id: recipientId
                 },
                 message: {
-                    text: "Ciao " + data
+                    text: "Ciao " + uno
                 }
             });
 
