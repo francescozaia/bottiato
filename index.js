@@ -58,9 +58,9 @@ app.post('/webhook', bodyParser.json(), function (req, res) {
 });
 
 // HTTPS certificates
-var privateKey = fs.readFileSync(express.static(__dirname + "../letsencrypt/live/secure.canecanuto.com/privkey.pem")).toString();
-var certificate = fs.readFileSync(express.static(__dirname + "../letsencrypt/live/secure.canecanuto.com/fullchain.pem")).toString();
-var chain = fs.readFileSync(express.static(__dirname + "../letsencrypt/live/secure.canecanuto.com/chain.pem")).toString();
+var privateKey = fs.readFileSync("/home/gituser/letsencrypt/live/secure.canecanuto.com/privkey.pem").toString();
+var certificate = fs.readFileSync("/home/gituser/letsencrypt/live/secure.canecanuto.com/fullchain.pem").toString();
+var chain = fs.readFileSync("/home/gituser/letsencrypt/live/secure.canecanuto.com/chain.pem").toString();
 
 // Create an HTTP service.
 http.createServer(app).listen(80);
