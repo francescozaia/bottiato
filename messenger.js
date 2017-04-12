@@ -138,6 +138,31 @@ module.exports = {
     this.callSendAPI(messageData);
   },
 
+    sendGreetingText: function() {
+        var greetingData = {
+            setting_type: "greeting",
+            greeting:{
+                text:"Ave a te {{user_first_name}}, come ti senti oggi?"
+            }
+        };
+        createGreetingApi(greetingData);
+    },
+    createGreetingApi: function(data) {
+        request({
+            uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
+            qs: { access_token: PAGE_ACCESS_TOKEN },
+            method: 'POST',
+            json: data
+
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log("Greeting set successfully!");
+            } else {
+                console.error("Failed calling Thread Reference API", response.statusCode, response.statusMessage, body.error);
+            }
+        });
+    },
+
   callSendAPI: function callSendAPI(messageData) {
     request({
       uri: 'https://graph.facebook.com/v2.6/me/messages',
