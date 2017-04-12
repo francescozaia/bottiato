@@ -150,7 +150,7 @@ module.exports = {
     createGreetingApi: function(data) {
         request({
             uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
-            qs: { access_token: PAGE_ACCESS_TOKEN },
+            qs: { access_token: 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD' },
             method: 'POST',
             json: data
 
