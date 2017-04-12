@@ -1,14 +1,11 @@
 var request = require('request'),
     fs = require('fs');
 
-var obj = JSON.parse(fs.readFileSync('/home/gituser/bottiato/json/battiato-beats.json', 'utf8'));
-
-var arr = obj.songs;
+var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/json/battiato-beats.json', 'utf8'));
 
 module.exports = {
 
   receivedMessage: function (event) {
-    console.log("Message data: ", event.message);
     var senderID = event.sender.id;
     var recipientID = event.recipient.id;
     var timeOfMessage = event.timestamp;
@@ -19,17 +16,13 @@ module.exports = {
     console.log(JSON.stringify(message));
 
     var messageId = message.mid;
-
     var messageText = message.text;
     var messageAttachments = message.attachments;
 
     if (messageText) {
-
-      // If we receive a text message, check to see if it matches a keyword
-      // and send back the example. Otherwise, just echo the text we received.
       switch (messageText.toLowerCase()) {
         case 'video':
-          this.sendGenericMessage(senderID);
+          this.sendVideoMessage(senderID);
           break;
         default:
           //this.sendTextMessage(senderID, messageText);
@@ -40,7 +33,7 @@ module.exports = {
     }
   },
 
-  sendGenericMessage: function (recipientId) {
+  sendVideoMessage: function (recipientId) {
     var messageData = {
       recipient: {
         id: recipientId
@@ -82,20 +75,15 @@ module.exports = {
 
   sendCanzone: function (recipientId, messageText) {
 
-    function cond(item) {
+    function filteringCondition(item) {
       for (var i = 0; i<messageTextWordsArray.length; i++) {
-          //RegExp('\\b'+ word +'\\b').test(str)
           var myPattern = new RegExp('\\b'+ messageTextWordsArray[i] +'\\b','gi'); // ho aggiunto gli spazi
-          //console.log(test[i])
           var matches = item.match(myPattern);
-          
           if (matches !== null) {
-              console.log("..." + matches)
               return true;
           }
-              
       }
-  }
+    }
 
     var messageTextWordsArray = messageText.split(' ').filter(function ( frase ) {
         var word = frase.match(/(\w+)/);
@@ -103,13 +91,13 @@ module.exports = {
     });
 
     var filtered = [];
-    filtered = arr.filter(cond);
+    filtered = battiatoBeatsObject["songs"].filter(filteringCondition);
 
     var canzone = filtered[0];
 
     if (!canzone || canzone === '') canzone = "Che si fa quando non c'è una corrispondenza tipo adesso?";
 
-    //var canzone = arr[Math.floor(Math.random() * arr.length)];
+    //var canzone = battiatoBeatsObject["songs"][Math.floor(Math.random() * battiatoBeatsObject["songs"].length)];
     var messageData = {
       recipient: {
         id: recipientId
@@ -142,6 +130,7 @@ module.exports = {
       }
     });
   }
+
 };
 
 

@@ -10,21 +10,13 @@ var bodyParser = require('body-parser'),
 
 var app = express();
 
-var privateKey = fs.readFileSync('/home/gituser/letsencrypt/live/secure.canecanuto.com/privkey.pem').toString();
-var certificate = fs.readFileSync('/home/gituser/letsencrypt/live/secure.canecanuto.com/fullchain.pem').toString();
-var chain = fs.readFileSync('/home/gituser/letsencrypt/live/secure.canecanuto.com/chain.pem').toString();
-
-var secureOptions = {
- key: privateKey,
- cert: certificate
-}
-
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(request, response) {
   response.send('Hello World!')
 });
 
+// webhook get
 app.get('/webhook', function(req, res) {
   if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'up_patriots_to_arms') {
     console.log("Validating webhook");
@@ -35,6 +27,7 @@ app.get('/webhook', function(req, res) {
   }  
 });
 
+// webhook post
 app.post('/webhook', bodyParser.json(), function (req, res) {
 	var data = req.body;
   // Make sure this is a page subscription
@@ -63,9 +56,16 @@ app.post('/webhook', bodyParser.json(), function (req, res) {
     res.sendStatus(200);
   }
 });
-  
+
+// HTTPS certificates
+var privateKey = fs.readFileSync(express.static(__dirname + "../letsencrypt/live/secure.canecanuto.com/privkey.pem")).toString();
+var certificate = fs.readFileSync(express.static(__dirname + "../letsencrypt/live/secure.canecanuto.com/fullchain.pem")).toString();
+var chain = fs.readFileSync(express.static(__dirname + "../letsencrypt/live/secure.canecanuto.com/chain.pem")).toString();
 
 // Create an HTTP service.
 http.createServer(app).listen(80);
 // Create an HTTPS service identical to the HTTP service.
-https.createServer(secureOptions, app).listen(443);
+https.createServer({
+    key: privateKey,
+    cert: certificate
+}, app).listen(443);
