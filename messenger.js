@@ -98,7 +98,7 @@ module.exports = {
                 text: lancione
             }
         };
-        this.callSendAPI(lancione);
+        this.callSendAPI(messageData);
     },
 
   sendCanzone: function (recipientId, messageText) {
