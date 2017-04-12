@@ -142,6 +142,7 @@ module.exports = {
 
     sendCanzone: function (recipientId, messageText) {
 
+        var c = this.callSendAPI;
         function filteringCondition(item) {
             for (var i = 0; i < messageTextWordsArray.length; i++) {
                 var myPattern = new RegExp('\\b' + messageTextWordsArray[i] + '\\b', 'gi'); // ho aggiunto gli spazi
@@ -176,16 +177,18 @@ module.exports = {
             }
         });
 
-        var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
+        setTimeout(function() {
+            var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
 
-        this.callSendAPI({
-            recipient: {
-                id: recipientId
-            },
-            message: {
-                text: rilancione
-            }
-        });
+            c({
+                recipient: {
+                    id: recipientId
+                },
+                message: {
+                    text: rilancione
+                }
+            });
+        }, 2000);
     },
 
     sendGreetingText: function () {
