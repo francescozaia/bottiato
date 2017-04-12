@@ -16,7 +16,7 @@ module.exports = {
             }, function (error, response, body) {
                 if (!error && response.statusCode === 200) {
                     console.log('Hi ' + body.first_name);
-                    resolve(body.first_name)
+                    resolve(body.first_name, id)
                 } else {
                     return reject(error)
                 }
@@ -63,10 +63,12 @@ module.exports = {
         }
     },
     sendSaluto: function (recipientId) {
-        var cSa = this.callSendAPI
-        this.getUserFirstName(recipientId, function (er, data) {
-            console.log("inside" + data);
-            cSa({
+        var promise = this.getUserFirstName(recipientId);
+        promise.then(this.vai);
+    },
+    vai : function(uno, due){
+            console.log("inside" + uno + "..." + due);
+            this.callSendAPI({
                 recipient: {
                     id: recipientId
                 },
@@ -77,7 +79,7 @@ module.exports = {
 
             var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
 
-            cSa({
+            this.callSendAPI({
                 recipient: {
                     id: recipientId
                 },
@@ -85,9 +87,6 @@ module.exports = {
                     text: rilancione
                 }
             });
-        })
-
-
     },
     sendVideoMessage: function (recipientId) {
         this.callSendAPI({
