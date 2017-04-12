@@ -63,10 +63,11 @@ module.exports = {
         }
     },
     sendSaluto: function (recipientId) {
+        var c = this.callSendAPI;
         var promise = this.getUserFirstName(recipientId);
-        promise.then(function(uno, recipientId){
+        promise.then(function(uno){
             console.log("inside" + uno + "..." + recipientId);
-            this.callSendAPI({
+            c({
                 recipient: {
                     id: recipientId
                 },
@@ -77,7 +78,7 @@ module.exports = {
 
             var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
 
-            this.callSendAPI({
+            c({
                 recipient: {
                     id: recipientId
                 },
