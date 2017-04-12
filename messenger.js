@@ -24,6 +24,9 @@ module.exports = {
         case 'video':
           this.sendVideoMessage(senderID);
           break;
+        case 'special':
+          this.sendSpecialMessage(senderID);
+          break;
         default:
           //this.sendTextMessage(senderID, messageText);
           this.sendCanzone(senderID, messageText);
@@ -72,6 +75,21 @@ module.exports = {
 
     this.callSendAPI(messageData);
   },
+
+    sendSpecialMessage: function (recipientId, messageText) {
+        var messageData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: messageText
+            }
+        };
+
+        this.callSendAPI(messageData);
+        var lancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
+        this.callSendAPI(lancione);
+    },
 
   sendCanzone: function (recipientId, messageText) {
 
