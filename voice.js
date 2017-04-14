@@ -73,6 +73,7 @@ module.exports = {
                 }
             }
         }
+        callSendAPI(messageData);
     },
 
     sendTextMessage: function(recipientId, text) {
