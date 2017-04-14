@@ -126,8 +126,8 @@ module.exports = {
         var canzone = filtered[0];
 
         if (!canzone || canzone === '') {
-            // se non c'è corrispondenza vai di random
-            canzone = battiatoBeatsObject["songs"][Math.floor(Math.random() * battiatoBeatsObject["songs"].length)];
+            // se non c'è corrispondenza vai di random su no_match
+            canzone = battiatoBeatsObject["no_match"][Math.floor(Math.random() * battiatoBeatsObject["no_match"].length)];
         }
 
         voice.sendTextMessage(recipientId, canzone);
