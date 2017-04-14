@@ -80,7 +80,7 @@ module.exports = {
         });
     },
     sendVideoMessage: function (recipientId) {
-        voice.callSendAPI({
+        /*voice.callSendAPI({
             recipient: {
                 id: recipientId
             },
@@ -101,7 +101,7 @@ module.exports = {
                     }
                 }
             }
-        });
+        });*/
     },
 
     sendCanzone: function (recipientId, messageText) {
