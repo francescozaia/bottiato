@@ -5,8 +5,8 @@ var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/jso
 
 module.exports = {
 
-    probability: function () {
-        return (Math.random() < 0.5);
+    probability: function (p) {
+        return (Math.random() < p);
     },
 
     receivedMessage: function (event) {
@@ -46,7 +46,9 @@ module.exports = {
                     this.sendCanzone(senderID, messageText);
             }
         } else if (messageAttachments) {
-            this.sendSimpleTextMessage(senderID, "Che si fa con i messaggi speciali tipo adesso?");
+            for (var i=0; i<messageAttachments.length; i++) {
+                this.sendSimpleTextMessage(senderID, "Messaggio con attachment: " + messageAttachments[i].type);
+            }
         }
     },
     sendEmoji: function (recipientId) {
@@ -126,9 +128,8 @@ module.exports = {
     },
 
     probabileRilancione: function (recipientId) {
-        if (this.probability()) { // manda questo solo il 50% delle volte
+        if (this.probability(0.7)) { // manda questo solo il 70% delle volte
             this.rilancione(recipientId);
-            this.probabileRilancione(recipientId);
         }
     },
 

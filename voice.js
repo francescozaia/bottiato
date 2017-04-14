@@ -59,13 +59,29 @@ module.exports = {
         });
     },
 
+    sendImageMessage: function(recipientId, imageURL) {
+        var messageData = {
+            "recipient": {
+                "id": recipientId
+            },
+            "message":{
+                "attachment":{
+                    "type":"image",
+                    "payload":{
+                        "url": imageURL
+                    }
+                }
+            }
+        }
+    },
+
     sendTextMessage: function(recipientId, text) {
         var messageData = {
-            recipient: {
-                id: recipientId
+            "recipient": {
+                "id": recipientId
             },
-            message: {
-                text: text
+            "message": {
+                "text": text
             }
         }
         callSendAPI(messageData);
