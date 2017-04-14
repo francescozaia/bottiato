@@ -1,30 +1,9 @@
-var request = require('request'),
-    fs = require('fs');
-
-var ACCESS_TOKEN = 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD';
+var fs = require('fs'),
+    voice = require('./voice.js');
 
 var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/json/battiato-beats.json', 'utf8'));
 
 module.exports = {
-
-    getUserFirstName:function(id) {
-        var usersPublicProfile = 'https://graph.facebook.com/v2.6/' + id + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + ACCESS_TOKEN;
-
-
-        return new Promise(function (resolve, reject) {
-            request({
-                url: usersPublicProfile,
-                json: true // parse
-            }, function (error, response, body) {
-                if (!error && response.statusCode === 200) {
-                    console.log('Hi ' + body.first_name);
-                    resolve(body.first_name, id)
-                } else {
-                    return reject(error)
-                }
-            });
-        })
-    },
 
     receivedMessage: function (event) {
         var senderID = event.sender.id;
@@ -53,6 +32,7 @@ module.exports = {
                     break;
                 case 'emoji':
                     this.sendEmoji(senderID);
+                    break;
                 case 'video':
                     this.sendVideoMessage(senderID);
                     break;
@@ -69,7 +49,7 @@ module.exports = {
     sendEmoji: function (recipientId) {
         var emoji = battiatoBeatsObject["emoji"][Math.floor(Math.random() * battiatoBeatsObject["emoji"].length)];
 
-        this.callSendAPI({
+        voice.callSendAPI({
             recipient: {
                 id: recipientId
             },
@@ -79,8 +59,8 @@ module.exports = {
         });
     },
     sendSaluto: function (recipientId) {
-        var c = this.callSendAPI;
-        var promise = this.getUserFirstName(recipientId);
+        var c = voice.callSendAPI;
+        var promise = voice.getUserFirstName(recipientId);
         promise.then(function(uno){
             c({
                 recipient: {
@@ -107,7 +87,7 @@ module.exports = {
         });
     },
     sendVideoMessage: function (recipientId) {
-        this.callSendAPI({
+        voice.callSendAPI({
             recipient: {
                 id: recipientId
             },
@@ -132,7 +112,7 @@ module.exports = {
     },
 
     sendSimpleTextMessage: function (recipientId, messageText) {
-        this.callSendAPI({
+        voice.callSendAPI({
             recipient: {
                 id: recipientId
             },
@@ -143,7 +123,7 @@ module.exports = {
     },
 
     sendSpecialMessage: function (recipientId, messageText) {
-        this.callSendAPI({
+        voice.callSendAPI({
             recipient: {
                 id: recipientId
             },
@@ -155,7 +135,7 @@ module.exports = {
 
     sendCanzone: function (recipientId, messageText) {
 
-        var c = this.callSendAPI;
+        var c = voice.callSendAPI;
         function filteringCondition(item) {
             for (var i = 0; i < messageTextWordsArray.length; i++) {
                 var myPattern = new RegExp('\\b' + messageTextWordsArray[i] + '\\b', 'gi'); // ho aggiunto gli spazi
@@ -181,7 +161,7 @@ module.exports = {
             canzone = battiatoBeatsObject["songs"][Math.floor(Math.random() * battiatoBeatsObject["songs"].length)];
         }
 
-        this.callSendAPI({
+        voice.callSendAPI({
             recipient: {
                 id: recipientId
             },
@@ -211,44 +191,7 @@ module.exports = {
                 text: "Ave a te {{user_first_name}}, come ti senti oggi?"
             }
         };
-        this.createGreetingApi(greetingData);
-    },
-    createGreetingApi: function (data) {
-        request({
-            uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
-            qs: {access_token: ACCESS_TOKEN},
-            method: 'POST',
-            json: data
-
-        }, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log("Greeting set successfully!");
-            } else {
-                console.error("Failed calling Thread Reference API", response.statusCode, response.statusMessage, body.error);
-            }
-        });
-    },
-
-    callSendAPI: function callSendAPI(messageData) {
-        request({
-            uri: 'https://graph.facebook.com/v2.6/me/messages',
-            qs: {access_token: ACCESS_TOKEN},
-            method: 'POST',
-            json: messageData
-
-        }, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                var recipientId = body.recipient_id;
-                var messageId = body.message_id;
-
-                console.log("Successfully sent generic message with id %s to recipient %s",
-                    messageId, recipientId);
-            } else {
-                console.error("Unable to send message.");
-                console.error(response);
-                console.error(error);
-            }
-        });
+        voice.callGreetingApi(greetingData);
     }
 
 };
