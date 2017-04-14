@@ -59,7 +59,6 @@ module.exports = {
         });
     },
     sendSaluto: function (recipientId) {
-        var c = voice.callSendAPI;
         var promise = voice.getUserFirstName(recipientId);
         promise.then(function(uno){
             c({
@@ -74,7 +73,7 @@ module.exports = {
             setTimeout(function() {
                 var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
 
-                c({
+                voice.callSendAPI({
                     recipient: {
                         id: recipientId
                     },
@@ -134,8 +133,6 @@ module.exports = {
     },
 
     sendCanzone: function (recipientId, messageText) {
-
-        var c = voice.callSendAPI;
         function filteringCondition(item) {
             for (var i = 0; i < messageTextWordsArray.length; i++) {
                 var myPattern = new RegExp('\\b' + messageTextWordsArray[i] + '\\b', 'gi'); // ho aggiunto gli spazi
@@ -173,7 +170,7 @@ module.exports = {
         setTimeout(function() {
             var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
 
-            c({
+            voice.callSendAPI({
                 recipient: {
                     id: recipientId
                 },
