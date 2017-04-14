@@ -57,12 +57,7 @@ module.exports = {
         var promise = voice.getUserFirstName(recipientId);
         promise.then(function(nomeUtente){
             voice.sendTextMessage(recipientId, "Un saluto a te, " + nomeUtente + ".");
-
-            setTimeout(function() {
-                var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
-                voice.sendTextMessage(recipientId, rilancione);
-            }, 2000);
-
+            this.rilancione(recipientId);
         });
     },
     sendVideoMessage: function (recipientId) {
@@ -126,12 +121,21 @@ module.exports = {
 
         voice.sendTextMessage(recipientId, canzone);
 
+        this.probabileRilancione(recipientId);
+    },
+
+    probabileRilancione: function (recipientId) {
         if (this.probability()) { // manda questo solo il 50% delle volte
-            setTimeout(function() {
-                var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
-                voice.sendTextMessage(recipientId, rilancione);
-            }, 2000);
+            this.rilancione(recipientId);
+            this.probabileRilancione(recipientId);
         }
+    },
+
+    rilancione: function (recipientId) {
+        setTimeout(function() {
+            var rilancioneText = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
+            voice.sendTextMessage(recipientId, rilancioneText);
+        }, 2000);
     },
 
     sendGreetingText: function () {
