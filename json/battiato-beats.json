@@ -141,7 +141,7 @@
     "Dicono storie di Principesse, chiuse in castelli per troppa bellezza",
     "Fiori di Loto, giardini stupendi e Leningrado oggi.",
     "Di notte ancora ti può capitare di udire suoni di armonium sfiatati.",
-    "E vecchi curdi che da mille anni offrono il petto a Novene…",
+    "E vecchi curdi che da mille anni offrono il petto a Novene...",
     "Strano come il rombo degli aerei da caccia un tempo, stonasse con il ritmo delle piante al sole sui balconi...",
     "E poi silenzio e poi, lontano il tuono dei cannoni; a freddo, e dalle radio dei segnali in codice.",
     "Un giorno in cielo, fuochi di Bengala, Ia pace ritornò.",
@@ -424,12 +424,16 @@
   ],
   "random": [
     "La mia parte araba chiede di saperne di più.",
-    "La mia parte siciliana vuole saperne di più.",
-    "Davvero? Dimmi di più.",
-    "Capisco. Dimmi di più.",
-    "Pensano lo stesso anche i sufi dei dervisci rotanti. Dimmi di più.",
+    "La mia parte siciliana deve sapere di più.",
+    "Davvero?",
+    "Credo di capire. Ma dimmi di più.",
+    "Pensano lo stesso anche i sufi che ballano dervisci rotanti. Dimmi di più.",
     "Tu dici? Dammi più dettagli.",
-    "Sì, ma lo pensi davvero?"
+    "Sì, ma lo pensi davvero?",
+    "Sai quando chiedevo se avessi mai veduto a Borgo Panigale un'aurora simile alla boreale? Ora però devo confessarti un segreto, nemmeno io l’ho mai vista. Chi diavolo ci vorrebbe mai andare a Borgo Panigale?"
+  ],
+  "emoji": [
+    "u\1F3DB"
   ],
   "ncrcp": [
     "Quanti siete?",

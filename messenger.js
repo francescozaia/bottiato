@@ -51,6 +51,8 @@ module.exports = {
                 case 'ehilà':
                     this.sendSaluto(senderID);
                     break;
+                case 'emoji':
+                    this.sendEmoji(senderID);
                 case 'video':
                     this.sendVideoMessage(senderID);
                     break;
@@ -64,17 +66,28 @@ module.exports = {
             this.sendSimpleTextMessage(senderID, "Che si fa con i messaggi speciali tipo adesso?");
         }
     },
+    sendEmoji: function (recipientId) {
+        var emoji = battiatoBeatsObject["emoji"][Math.floor(Math.random() * battiatoBeatsObject["emoji"].length)];
+
+        this.callSendAPI({
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: emoji
+            }
+        });
+    },
     sendSaluto: function (recipientId) {
         var c = this.callSendAPI;
         var promise = this.getUserFirstName(recipientId);
         promise.then(function(uno){
-            console.log("inside" + uno + "..." + recipientId);
             c({
                 recipient: {
                     id: recipientId
                 },
                 message: {
-                    text: "Ciao " + uno
+                    text: "Un saluto a te, " + uno + "."
                 }
             });
 
