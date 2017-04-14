@@ -40,16 +40,29 @@ module.exports = {
                     this.sendVideoMessage(senderID);
                     break;
                 case 'special':
-                    this.sendSpecialMessage(senderID, messageText);
+                    this.sendTxt(senderID, messageText);
                     break;
                 default:
                     this.sendCanzone(senderID, messageText);
             }
         } else if (messageAttachments) {
             for (var i=0; i<messageAttachments.length; i++) {
-                this.sendSimpleTextMessage(senderID, "Messaggio con attachment: " + messageAttachments[i].type);
+                if (messageAttachments[i].type === "image") {
+                    if (messageAttachments[i].payload["sticker_id"].toString() === "369239263222822") { //thumbup
+                        this.sendTxt(senderID, "(Y)");
+                    } else {
+                        voice.sendImg(senderID, "imageURLTODO");
+                    }
+                }
+                this.sendTxt(senderID, "Messaggio con attachment: " + messageAttachments[i].type);
             }
         }
+    },
+    sendImg: function (recipientId, img) {
+        voice.sendImageMessage(recipientId, "https://secure.canecanuto.com/bottiato.png");
+    },
+    sendTxt: function (recipientId, txt) {
+        voice.sendTextMessage(recipientId, txt);
     },
     sendEmoji: function (recipientId) {
         var emoji = battiatoBeatsObject["emoji"][Math.floor(Math.random() * battiatoBeatsObject["emoji"].length)];
@@ -86,14 +99,6 @@ module.exports = {
                 }
             }
         });
-    },
-
-    sendSimpleTextMessage: function (recipientId, messageText) {
-        voice.sendTextMessage(recipientId, messageText);
-    },
-
-    sendSpecialMessage: function (recipientId, messageText) {
-        voice.sendTextMessage(recipientId, messageText + " yo!");
     },
 
     sendCanzone: function (recipientId, messageText) {
