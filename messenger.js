@@ -128,11 +128,12 @@ module.exports = {
         if (!canzone || canzone === '') {
             // se non c'è corrispondenza vai di random su no_match
             canzone = battiatoBeatsObject["no_match"][Math.floor(Math.random() * battiatoBeatsObject["no_match"].length)];
+            voice.sendTextMessage(recipientId, canzone);
+        } else {
+            voice.sendTextMessage(recipientId, canzone);
+            this.probabileRilancione(recipientId);
         }
 
-        voice.sendTextMessage(recipientId, canzone);
-
-        this.probabileRilancione(recipientId);
     },
 
     probabileRilancione: function (recipientId) {
