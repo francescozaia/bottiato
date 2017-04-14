@@ -52,7 +52,7 @@ module.exports = {
                     if (messageAttachments[i].payload["sticker_id"] && messageAttachments[i].payload["sticker_id"].toString() === "369239263222822") { //thumbup
                         this.sendTxt(senderID, "(Y)");
                     } else {
-                        voice.sendImg(senderID, "imageURLTODO");
+                        this.sendImg(senderID, "imageURLTODO");
                     }
                 }
                 this.sendTxt(senderID, "Messaggio con attachment: " + messageAttachments[i].type);
