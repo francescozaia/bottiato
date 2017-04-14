@@ -54,10 +54,11 @@ module.exports = {
         voice.sendTextMessage(recipientId, emoji);
     },
     sendSaluto: function (recipientId) {
+        var rilancione = this.rilancione;
         var promise = voice.getUserFirstName(recipientId);
         promise.then(function(nomeUtente){
             voice.sendTextMessage(recipientId, "Un saluto a te, " + nomeUtente + ".");
-            this.rilancione(recipientId);
+            rilancione(recipientId);
         });
     },
     sendVideoMessage: function (recipientId) {
