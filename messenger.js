@@ -48,8 +48,6 @@ module.exports = {
         } else if (messageAttachments) {
             for (var i=0; i<messageAttachments.length; i++) {
                 this.sendSimpleTextMessage(senderID, "Messaggio con attachment: " + messageAttachments[i].type);
-                console.log(messageAttachments[i].payload)
-                console.log(messageAttachments[i].payload.url)
             }
         }
     },
