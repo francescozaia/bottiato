@@ -48,7 +48,8 @@ module.exports = {
         } else if (messageAttachments) {
             for (var i=0; i<messageAttachments.length; i++) {
                 if (messageAttachments[i].type === "image") {
-                    if (messageAttachments[i].payload["sticker_id"].toString() === "369239263222822") { //thumbup
+                    console.log("-----"+messageAttachments[i].payload["sticker_id"])
+                    if (messageAttachments[i].payload["sticker_id"] && messageAttachments[i].payload["sticker_id"].toString() === "369239263222822") { //thumbup
                         this.sendTxt(senderID, "(Y)");
                     } else {
                         voice.sendImg(senderID, "imageURLTODO");
