@@ -127,6 +127,7 @@ module.exports = {
         voice.sendTextMessage(recipientId, canzone);
 
         if (probability) { // manda questo solo il 50% delle volte
+            console.log("pro" + probability)
             setTimeout(function() {
                 var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
                 voice.sendTextMessage(recipientId, rilancione);
