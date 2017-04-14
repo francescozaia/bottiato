@@ -61,7 +61,7 @@ module.exports = {
     sendSaluto: function (recipientId) {
         var promise = voice.getUserFirstName(recipientId);
         promise.then(function(uno){
-            c({
+            voice.callSendAPI({
                 recipient: {
                     id: recipientId
                 },
