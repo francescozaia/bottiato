@@ -52,15 +52,17 @@ module.exports = {
                     if (messageAttachments[i].payload["sticker_id"] && messageAttachments[i].payload["sticker_id"].toString() === "369239263222822") { //thumbup
                         this.sendTxt(senderID, "(Y)");
                     } else {
-                        this.sendImg(senderID, "imageURLTODO");
+                        this.sendTextAndImg(senderID, "imageURLTODO");
                     }
                 }
-                this.sendTxt(senderID, "Messaggio con attachment: " + messageAttachments[i].type);
             }
         }
     },
-    sendImg: function (recipientId, img) {
-        voice.sendImageMessage(recipientId, "https://secure.canecanuto.com/bottiato.png");
+    sendTextAndImg: function (recipientId, img) {
+        var txt = battiatoBeatsObject["immagini_txt"][Math.floor(Math.random() * battiatoBeatsObject["immagini_txt"].length)];
+        voice.sendTextMessage(recipientId, txt);
+        var immagine = battiatoBeatsObject["immagini"][Math.floor(Math.random() * battiatoBeatsObject["immagini"].length)];
+        voice.sendImageMessage(recipientId, immagine);
     },
     sendTxt: function (recipientId, txt) {
         voice.sendTextMessage(recipientId, txt);

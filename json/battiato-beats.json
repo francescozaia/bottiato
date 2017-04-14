@@ -422,6 +422,15 @@
     "Ora dimmi, qual è il tuo peggior rimpianto?",
     "E tu, cosa salveresti se la tua casa stesse andando a fuoco? E perché?"
   ],
+  "immagini_txt": [
+    "Come sai, già non amo le penne stilografiche con l’inchiostro blu, figurati le immmagini spedite sull'internet.",
+    "Ti manderò allora anche una mia fotografia.",
+    "Bene. Una bella immagine di te."
+  ],
+  "immagini": [
+    "https://secure.canecanuto.com/bottiato.png",
+    "https://secure.canecanuto.com/bottiato72.jpg"
+  ],
   "random": [
     "La mia parte araba chiede di saperne di più.",
     "La mia parte siciliana deve sapere di più.",
