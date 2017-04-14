@@ -9,6 +9,12 @@ module.exports = {
         return (Math.random() < p);
     },
 
+    getRandomInt: function (min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    },
+
     receivedMessage: function (event) {
         var senderID = event.sender.id;
         var recipientID = event.recipient.id;
@@ -61,7 +67,8 @@ module.exports = {
     sendTextAndImg: function (recipientId, img) {
         var txt = battiatoBeatsObject["immagini_txt"][Math.floor(Math.random() * battiatoBeatsObject["immagini_txt"].length)];
         voice.sendTextMessage(recipientId, txt);
-        var immagine = battiatoBeatsObject["immagini"][Math.floor(Math.random() * battiatoBeatsObject["immagini"].length)];
+        //var immagine = battiatoBeatsObject["immagini"][Math.floor(Math.random() * battiatoBeatsObject["immagini"].length)];
+        var immagine = "https://secure.canecanuto.com/" + this.getRandomInt(0, 50) + ".jpg";
         voice.sendImageMessage(recipientId, immagine);
     },
     sendTxt: function (recipientId, txt) {
