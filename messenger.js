@@ -5,14 +5,17 @@ var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/jso
 
 module.exports = {
 
+    probability: function () {
+        return (Math.random() < 0.5);
+    },
+
     receivedMessage: function (event) {
         var senderID = event.sender.id;
         var recipientID = event.recipient.id;
         var timeOfMessage = event.timestamp;
         var message = event.message;
 
-        console.log("Received message for user %d and page %d at %d with message:",
-            senderID, recipientID, timeOfMessage);
+        console.log("Received message for user %d and page %d at %d with message:", senderID, recipientID, timeOfMessage);
         console.log(JSON.stringify(message));
 
         var messageId = message.mid;
@@ -48,39 +51,16 @@ module.exports = {
     },
     sendEmoji: function (recipientId) {
         var emoji = battiatoBeatsObject["emoji"][Math.floor(Math.random() * battiatoBeatsObject["emoji"].length)];
-
-        voice.callSendAPI({
-            recipient: {
-                id: recipientId
-            },
-            message: {
-                text: emoji
-            }
-        });
+        voice.sendTextMessage(recipientId, emoji);
     },
     sendSaluto: function (recipientId) {
         var promise = voice.getUserFirstName(recipientId);
-        promise.then(function(uno){
-            voice.callSendAPI({
-                recipient: {
-                    id: recipientId
-                },
-                message: {
-                    text: "Un saluto a te, " + uno + "."
-                }
-            });
+        promise.then(function(nomeUtente){
+            voice.sendTextMessage(recipientId, "Un saluto a te, " + nomeUtente + ".");
 
             setTimeout(function() {
                 var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
-
-                voice.callSendAPI({
-                    recipient: {
-                        id: recipientId
-                    },
-                    message: {
-                        text: rilancione
-                    }
-                });
+                voice.sendTextMessage(recipientId, rilancione);
             }, 2000);
 
         });
@@ -111,25 +91,11 @@ module.exports = {
     },
 
     sendSimpleTextMessage: function (recipientId, messageText) {
-        voice.callSendAPI({
-            recipient: {
-                id: recipientId
-            },
-            message: {
-                text: messageText
-            }
-        });
+        voice.sendTextMessage(recipientId, messageText);
     },
 
     sendSpecialMessage: function (recipientId, messageText) {
-        voice.callSendAPI({
-            recipient: {
-                id: recipientId
-            },
-            message: {
-                text: messageText + " yo!"
-            }
-        });
+        voice.sendTextMessage(recipientId, messageText + " yo!");
     },
 
     sendCanzone: function (recipientId, messageText) {
@@ -158,27 +124,14 @@ module.exports = {
             canzone = battiatoBeatsObject["songs"][Math.floor(Math.random() * battiatoBeatsObject["songs"].length)];
         }
 
-        voice.callSendAPI({
-            recipient: {
-                id: recipientId
-            },
-            message: {
-                text: canzone
-            }
-        });
+        voice.sendTextMessage(recipientId, canzone);
 
-        setTimeout(function() {
-            var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
-
-            voice.callSendAPI({
-                recipient: {
-                    id: recipientId
-                },
-                message: {
-                    text: rilancione
-                }
-            });
-        }, 2000);
+        if (probability) { // manda questo solo il 50% delle volte
+            setTimeout(function() {
+                var rilancione = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
+                voice.sendTextMessage(recipientId, rilancione);
+            }, 2000);
+        }
     },
 
     sendGreetingText: function () {
