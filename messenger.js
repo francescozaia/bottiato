@@ -139,8 +139,8 @@ module.exports = {
                 // se non c'è corrispondenza vai di random su no_match
                 //var randomIndex = Math.floor(Math.random() * battiatoBeatsObject["no_match"].length);
                 var i = lStorage.load("messengerBotData")["no_match"]
-                console.log("test:" + i);
-                canzone = battiatoBeatsObject["no_match"][randomIndex];
+                console.log("test:" + lStorage.load("messengerBotData"));
+                canzone = battiatoBeatsObject["no_match"][i];
                 voice.sendTextMessage(recipientId, canzone);
             } else {
                 voice.sendTextMessage(recipientId, canzone);
