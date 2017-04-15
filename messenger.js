@@ -29,32 +29,16 @@ module.exports = {
         var messageAttachments = message.attachments;
 
         if (messageText) {
-            switch (messageText.toLowerCase().replace(/!/g,'').trim()) {
-                case 'ciao':
-                case 'buongiorno':
-                case 'hey':
-                case 'ei':
-                case 'hei':
-                case 'ehi':
-                case 'ehilà':
-                    this.sendSaluto(senderID);
-                    break;
-                case 'foto':
-                case 'fotografia':
-                case 'immagine':
-                    this.sendTextAndImg(senderID);
-                    break;
-                case 'emoji':
-                    this.sendEmoji(senderID);
-                    break;
-                case 'video':
-                    this.sendVideoMessage(senderID);
-                    break;
-                case 'special':
-                    this.sendTxt(senderID, messageText);
-                    break;
-                default:
-                    this.sendCanzone(senderID, messageText);
+            if (messageText.match( /(ciao|buongiorno|hey|ei|yo|hei|ehilà)/ )) {
+                this.sendSaluto(senderID);
+            } else if (messageText.match( /(foto|fotografia|immagine)/ )) {
+                this.sendTextAndImg(senderID);
+            } else if (messageText.match( /(emoji)/ )) {
+                this.sendEmoji(senderID);
+            } else if (messageText.match( /(video)/ )) {
+                this.sendVideoMessage(senderID);
+            } else {
+                this.sendCanzone(senderID, messageText);
             }
         } else if (messageAttachments) {
             for (var i=0; i<messageAttachments.length; i++) {
@@ -70,7 +54,7 @@ module.exports = {
         }
     },
     sendTextAndImg: function (recipientId) {
-        var selectedImage = this.getRandomInt(1, 48);
+        var selectedImage = this.getRandomInt(1, 47);
         console.log("Foto: " + selectedImage)
         var txt = battiatoBeatsObject["immagini_descriptions"][selectedImage];
         voice.sendTextMessage(recipientId, txt);
