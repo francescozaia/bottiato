@@ -39,6 +39,11 @@ module.exports = {
                 case 'ehilà':
                     this.sendSaluto(senderID);
                     break;
+                case 'foto':
+                case 'fotografia':
+                case 'immagine':
+                    this.sendTextAndImg(senderID);
+                    break;
                 case 'emoji':
                     this.sendEmoji(senderID);
                     break;
