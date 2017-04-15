@@ -1,6 +1,6 @@
 var request = require('request');
 var callSendAPI = require('./sender/callSendAPI.js');
-var callSendThreadSettings = require('./sender/callThreadSettings.js');
+var callSendThreadSettings = require('./sender/callThreadSettingsAPI.js');
 
 var ACCESS_TOKEN = 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD';
 

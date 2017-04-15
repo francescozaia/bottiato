@@ -5,7 +5,7 @@ var PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
     (process.env.MESSENGER_PAGE_ACCESS_TOKEN) :
     'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD';
 
-module.exports = function callThreadSettings(messageData) {
+module.exports = function callThreadSettingsAPI(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
         qs: {access_token: PAGE_ACCESS_TOKEN},
