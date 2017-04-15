@@ -1,6 +1,5 @@
 var request = require('request'),
-    winston = require('winston'),
-    config = require('config');
+    winston = require('winston');
 
 var PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
     (process.env.MESSENGER_PAGE_ACCESS_TOKEN) :
