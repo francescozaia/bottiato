@@ -58,17 +58,17 @@ module.exports = {
                     if (messageAttachments[i].payload["sticker_id"] && messageAttachments[i].payload["sticker_id"].toString() === "369239263222822") { //thumbup
                         this.sendTxt(senderID, "(Y)");
                     } else {
-                        this.sendTextAndImg(senderID, "imageURLTODO");
+                        this.sendTextAndImg(senderID);
                     }
                 }
             }
         }
     },
-    sendTextAndImg: function (recipientId, img) {
-        var txt = battiatoBeatsObject["immagini_txt"][Math.floor(Math.random() * battiatoBeatsObject["immagini_txt"].length)];
+    sendTextAndImg: function (recipientId) {
+        var selectedImage = this.getRandomInt(1, 48);
+        var txt = battiatoBeatsObject["immagini_descriptions"][selectedImage];
         voice.sendTextMessage(recipientId, txt);
-        //var immagine = battiatoBeatsObject["immagini"][Math.floor(Math.random() * battiatoBeatsObject["immagini"].length)];
-        var immagine = "https://secure.canecanuto.com/" + this.getRandomInt(0, 50) + ".jpg";
+        var immagine = "https://secure.canecanuto.com/" + selectedImage + ".jpg";
         voice.sendImageMessage(recipientId, immagine);
     },
     sendTxt: function (recipientId, txt) {
