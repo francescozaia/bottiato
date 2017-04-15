@@ -14,9 +14,9 @@ var getRandomTime = function() {
     return Math.floor(Math.random() * (4000 - 1000)) + 1000;
 };
 
-lStorage.save("messengerBotData", {
+/*lStorage.save("messengerBotData", {
     "no_match": 0
-}, 60 * 24);
+}, 60 * 24);*/
 
 module.exports = {
 
@@ -137,10 +137,10 @@ module.exports = {
             voice.sendTypingOff(recipientId);
             if (!canzone || canzone === '') {
                 // se non c'è corrispondenza vai di random su no_match
-                //var randomIndex = Math.floor(Math.random() * battiatoBeatsObject["no_match"].length);
-                var i = lStorage.load("messengerBotData")["no_match"]
-                console.log("test:" + lStorage.load("messengerBotData"));
-                canzone = battiatoBeatsObject["no_match"][i];
+                var randomIndex = Math.floor(Math.random() * battiatoBeatsObject["no_match"].length);
+                //var i = lStorage.load("messengerBotData")["no_match"]
+                //console.log("test:" + lStorage.load("messengerBotData"));
+                canzone = battiatoBeatsObject["no_match"][randomIndex];
                 voice.sendTextMessage(recipientId, canzone);
             } else {
                 voice.sendTextMessage(recipientId, canzone);
