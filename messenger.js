@@ -5,10 +5,6 @@ var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/jso
 
 module.exports = {
 
-    probability: function (p) {
-        return (Math.random() < p);
-    },
-
     getRandomInt: function (min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
@@ -145,7 +141,7 @@ module.exports = {
     },
 
     probabileRilancione: function (recipientId) {
-        if (this.probability(0.7)) { // manda questo solo il 70% delle volte
+        if (Math.random() < 0.7) { // manda questo solo il 70% delle volte
             this.rilancione(recipientId);
         }
     },
