@@ -71,6 +71,7 @@ module.exports = {
     },
     sendTextAndImg: function (recipientId) {
         var selectedImage = this.getRandomInt(1, 48);
+        console.log("Foto: " + selectedImage)
         var txt = battiatoBeatsObject["immagini_descriptions"][selectedImage];
         voice.sendTextMessage(recipientId, txt);
         var immagine = "https://secure.canecanuto.com/" + selectedImage + ".jpg";
