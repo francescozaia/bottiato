@@ -10,7 +10,7 @@ module.exports = function callSendAPI(messageData) {
         uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token: PAGE_ACCESS_TOKEN},
         method: 'POST',
-        json: messageData,
+        json: messageData
     }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
             var recipientId = body.recipient_id;
