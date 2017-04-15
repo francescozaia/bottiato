@@ -113,7 +113,6 @@ module.exports = {
         });
         var canzone = '';
         var filtered = [];
-        var probabileRilancione = this.probabileRilancione;
         filtered = battiatoBeatsObject["songs"].filter(function(item){
             for (var i = 0; i < messageTextWordsArray.length; i++) {
                 var myPattern = new RegExp('\\b' + messageTextWordsArray[i] + '\\b', 'gi'); // ho aggiunto gli spazi
@@ -125,7 +124,7 @@ module.exports = {
         });
 
         var canzone = filtered[0];
-
+        var rilancione = this.rilancione();
         setTimeout(function() {
             voice.sendTypingOff(recipientId);
             if (!canzone || canzone === '') {
@@ -134,16 +133,12 @@ module.exports = {
                 voice.sendTextMessage(recipientId, canzone);
             } else {
                 voice.sendTextMessage(recipientId, canzone);
-                probabileRilancione(recipientId);
+                if (Math.random() < 0.7) { // manda questo solo il 70% delle volte
+                    rilancione(recipientId);
+                }
             }
         }, 2000);
 
-    },
-
-    probabileRilancione: function (recipientId) {
-        if (Math.random() < 0.7) { // manda questo solo il 70% delle volte
-            this.rilancione(recipientId);
-        }
     },
 
     rilancione: function (recipientId) {
