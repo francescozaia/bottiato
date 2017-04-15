@@ -29,16 +29,17 @@ module.exports = {
         var messageAttachments = message.attachments;
 
         if (messageText) {
-            if (messageText.match( /(ciao|buongiorno|hey|ei|yo|hei|ehilà)/ )) {
+            var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
+            if (cleaned.match( /(ciao|buongiorno|hey|ei|yo|hei|ehilà)/ )) {
                 this.sendSaluto(senderID);
-            } else if (messageText.match( /(foto|fotografia|immagine)/ )) {
+            } else if (cleaned.match( /(foto|fotografia|immagine)/ )) {
                 this.sendTextAndImg(senderID);
-            } else if (messageText.match( /(emoji)/ )) {
+            } else if (cleaned.match( /(emoji)/ )) {
                 this.sendEmoji(senderID);
-            } else if (messageText.match( /(video)/ )) {
+            } else if (cleaned.match( /(video)/ )) {
                 this.sendVideoMessage(senderID);
             } else {
-                this.sendCanzone(senderID, messageText);
+                this.sendCanzone(senderID, cleaned);
             }
         } else if (messageAttachments) {
             for (var i=0; i<messageAttachments.length; i++) {
