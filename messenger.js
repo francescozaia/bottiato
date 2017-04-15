@@ -124,7 +124,7 @@ module.exports = {
         });
 
         var canzone = filtered[0];
-        var rilancione = this.rilancione();
+        var rilancione = this.rilancione;
         setTimeout(function() {
             voice.sendTypingOff(recipientId);
             if (!canzone || canzone === '') {
