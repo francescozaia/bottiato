@@ -55,12 +55,17 @@ module.exports = {
         }
     },
     sendTextAndImg: function (recipientId) {
-        var selectedImage = this.getRandomInt(1, 47);
-        console.log("Foto: " + selectedImage)
-        var txt = battiatoBeatsObject["immagini_descriptions"][selectedImage];
-        voice.sendTextMessage(recipientId, txt);
-        var immagine = "https://secure.canecanuto.com/" + selectedImage + ".jpg";
-        voice.sendImageMessage(recipientId, immagine);
+
+        voice.sendTypingOn(recipientId);
+        setTimeout(function() {
+            voice.sendTypingOff(recipientId);
+            var selectedImage = this.getRandomInt(1, 47);
+            var txt = battiatoBeatsObject["immagini_descriptions"][selectedImage];
+            var immagine = "https://secure.canecanuto.com/" + selectedImage + ".jpg";
+
+            voice.sendTextMessage(recipientId, txt);
+            voice.sendImageMessage(recipientId, immagine);
+        }, 2000);
     },
     sendTxt: function (recipientId, txt) {
         voice.sendTextMessage(recipientId, txt);
@@ -103,7 +108,17 @@ module.exports = {
     },
 
     sendCanzone: function (recipientId, messageText) {
-        function filteringCondition(item) {
+
+        voice.sendTypingOn(recipientId);
+
+        var messageTextWordsArray = messageText.split(' ').filter(function (frase) {
+            var word = frase.match(/(\w+)/);
+            return word && word[0].length > 3;
+        });
+        var canzone = '';
+        var filtered = [];
+        var probabileRilancione = this.probabileRilancione;
+        filtered = battiatoBeatsObject["songs"].filter(function(item){
             for (var i = 0; i < messageTextWordsArray.length; i++) {
                 var myPattern = new RegExp('\\b' + messageTextWordsArray[i] + '\\b', 'gi'); // ho aggiunto gli spazi
                 var matches = item.match(myPattern);
@@ -111,26 +126,21 @@ module.exports = {
                     return true;
                 }
             }
-        }
-
-        var messageTextWordsArray = messageText.split(' ').filter(function (frase) {
-            var word = frase.match(/(\w+)/);
-            return word && word[0].length > 3;
         });
-
-        var filtered = [];
-        filtered = battiatoBeatsObject["songs"].filter(filteringCondition);
 
         var canzone = filtered[0];
 
-        if (!canzone || canzone === '') {
-            // se non c'è corrispondenza vai di random su no_match
-            canzone = battiatoBeatsObject["no_match"][Math.floor(Math.random() * battiatoBeatsObject["no_match"].length)];
-            voice.sendTextMessage(recipientId, canzone);
-        } else {
-            voice.sendTextMessage(recipientId, canzone);
-            this.probabileRilancione(recipientId);
-        }
+        setTimeout(function() {
+            voice.sendTypingOff(recipientId);
+            if (!canzone || canzone === '') {
+                // se non c'è corrispondenza vai di random su no_match
+                canzone = battiatoBeatsObject["no_match"][Math.floor(Math.random() * battiatoBeatsObject["no_match"].length)];
+                voice.sendTextMessage(recipientId, canzone);
+            } else {
+                voice.sendTextMessage(recipientId, canzone);
+                probabileRilancione(recipientId);
+            }
+        }, 2000);
 
     },
 
@@ -148,13 +158,7 @@ module.exports = {
     },
 
     sendGreetingText: function () {
-        var greetingData = {
-            setting_type: "greeting",
-            greeting: {
-                text: "Ave a te {{user_first_name}}, come ti senti oggi?"
-            }
-        };
-        voice.callGreetingApi(greetingData);
+        voice.sendGreeting();
     }
 
 };
