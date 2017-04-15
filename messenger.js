@@ -3,13 +3,13 @@ var fs = require('fs'),
 
 var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/json/battiato-beats.json', 'utf8'));
 
-module.exports = {
+var getRandomInt = function (min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+};
 
-    getRandomInt: function (min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
-    },
+module.exports = {
 
     receivedMessage: function (event) {
         var senderID = event.sender.id;
@@ -55,7 +55,7 @@ module.exports = {
         voice.sendTypingOn(recipientId);
         setTimeout(function() {
             voice.sendTypingOff(recipientId);
-            var selectedImage = this.getRandomInt(1, 47);
+            var selectedImage = getRandomInt(1, 47);
             var txt = battiatoBeatsObject["immagini_descriptions"][selectedImage];
             var immagine = "https://secure.canecanuto.com/" + selectedImage + ".jpg";
 
