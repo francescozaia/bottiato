@@ -1,5 +1,5 @@
 var fs = require('fs'),
-    lStorage = require('./localStorage.js'),
+    lStorage = require('./storage/localStorage.js'),
     voice = require('./voice.js');
 
 var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/json/battiato-beats.json', 'utf8'));
