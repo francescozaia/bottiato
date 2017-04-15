@@ -1,4 +1,5 @@
 var fs = require('fs'),
+    lStorage = require('./localStorage.js'),
     voice = require('./voice.js');
 
 var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/json/battiato-beats.json', 'utf8'));
@@ -11,7 +12,11 @@ var getRandomInt = function (min, max) {
 
 var getRandomTime = function() {
     return Math.floor(Math.random() * (4000 - 1000)) + 1000;
-}
+};
+
+lStorage.save("messengerBotData", {
+    "no_match": 0
+}, 60 * 24);
 
 module.exports = {
 
@@ -132,7 +137,9 @@ module.exports = {
             voice.sendTypingOff(recipientId);
             if (!canzone || canzone === '') {
                 // se non c'è corrispondenza vai di random su no_match
-                canzone = battiatoBeatsObject["no_match"][Math.floor(Math.random() * battiatoBeatsObject["no_match"].length)];
+                //var randomIndex = Math.floor(Math.random() * battiatoBeatsObject["no_match"].length);
+                console.log("test:" + lStorage.load("messengerBotData")["no_match"]);
+                canzone = battiatoBeatsObject["no_match"][randomIndex];
                 voice.sendTextMessage(recipientId, canzone);
             } else {
                 voice.sendTextMessage(recipientId, canzone);
