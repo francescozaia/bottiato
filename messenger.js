@@ -9,6 +9,10 @@ var getRandomInt = function (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 };
 
+var getRandomTime = function() {
+    return Math.floor(Math.random() * (4000 - 1000)) + 1000;
+}
+
 module.exports = {
 
     receivedMessage: function (event) {
@@ -17,8 +21,8 @@ module.exports = {
         var timeOfMessage = event.timestamp;
         var message = event.message;
 
-        console.log("Received message for user %d and page %d at %d with message:", senderID, recipientID, timeOfMessage);
-        console.log(JSON.stringify(message));
+        //console.log("Received message for user %d and page %d at %d with message:", senderID, recipientID, timeOfMessage);
+        //console.log(JSON.stringify(message));
 
         var messageId = message.mid;
         var messageText = message.text;
@@ -40,7 +44,6 @@ module.exports = {
         } else if (messageAttachments) {
             for (var i=0; i<messageAttachments.length; i++) {
                 if (messageAttachments[i].type === "image") {
-                    console.log("-----"+messageAttachments[i].payload["sticker_id"])
                     if (messageAttachments[i].payload["sticker_id"] && messageAttachments[i].payload["sticker_id"].toString() === "369239263222822") { //thumbup
                         this.sendTxt(senderID, "(Y)");
                     } else {
@@ -61,7 +64,7 @@ module.exports = {
 
             voice.sendTextMessage(recipientId, txt);
             voice.sendImageMessage(recipientId, immagine);
-        }, 2000);
+        }, getRandomTime());
     },
     sendTxt: function (recipientId, txt) {
         voice.sendTextMessage(recipientId, txt);
@@ -137,7 +140,7 @@ module.exports = {
                     rilancione(recipientId);
                 }
             }
-        }, 2000);
+        }, getRandomTime());
 
     },
 
@@ -145,7 +148,7 @@ module.exports = {
         setTimeout(function() {
             var rilancioneText = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
             voice.sendTextMessage(recipientId, rilancioneText);
-        }, 2000);
+        }, getRandomTime());
     },
 
     sendGreetingText: function () {
