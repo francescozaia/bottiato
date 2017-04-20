@@ -72,3 +72,5 @@ https.createServer({
 }, app).listen(443);
 
 messenger.sendGreetingText();
+mongo.connect();
+mongo.findAll();
