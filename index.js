@@ -7,6 +7,7 @@ var bodyParser = require('body-parser'),
     http = require('http'),
     https = require('https'),
     messenger = require('./messenger.js');
+    mongo = require('./mongo.js')
 
 var app = express();
 
