@@ -35,9 +35,10 @@ module.exports = {
 
         if (messageText) {
             var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
-            if (cleaned.match( /(ciao|buongiorno|hey|ei|yo|hei|ehilà)/ )) {
+            /*if (cleaned.match( /(ciao|buongiorno|hey|ei|yo|hei|ehilà)/ )) {
                 this.sendSaluto(senderID);
-            } else if (cleaned.match( /(foto|fotografia|immagine)/ )) {
+            } else*/
+            if (cleaned.match( /(foto|fotografia|immagine)/ )) {
                 this.sendTextAndImg(senderID);
             } else if (cleaned.match( /(emoji)/ )) {
                 this.sendEmoji(senderID);
