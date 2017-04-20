@@ -160,7 +160,7 @@ module.exports = {
     },
 
     sendGreetingText: function () {
-        voice.sendGreeting();
+        // is this needed? voice.sendGreeting();
     }
 
 };
