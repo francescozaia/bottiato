@@ -73,4 +73,6 @@ https.createServer({
 
 messenger.sendGreetingText();
 mongo.connect();
-mongo.findAll();
+setTimeout(function() {
+    mongo.findAll();
+}, 1000);
