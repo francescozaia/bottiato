@@ -177,7 +177,7 @@ module.exports = {
             var trovato = chiarimentiUsati[chiarimentiUsati.indexOf(c)];
             console.log("trovato: ",trovato);
             if (chiarimenti.length > 1) {
-                this.getRandomChiarimento(chiarimenti.remove(trovato));
+                this.getRandomChiarimento(chiarimenti.remove(trovato), chiarimenti, chiarimentiUsati);
             } else {
                 mongo.update(recipientId, {
                     canzone: null,
