@@ -16,12 +16,17 @@ var getRandomInt = function (min, max) {
 var getRandomTime = function() {
     return Math.floor(Math.random() * (4000 - 1000)) + 1000;
 };
-
+var asw = [];
 /*lStorage.save("messengerBotData", {
     "no_match": 0
 }, 60 * 24);*/
 
 module.exports = {
+
+    storeAlreadySeenWords: function(doc) {
+        console.log("words: ", doc.words);
+        asw = doc.words;
+    },
 
     receivedMessage: function (event) {
         var senderID = event.sender.id;
@@ -37,7 +42,7 @@ module.exports = {
         var messageAttachments = message.attachments;
 
         // mongo.insertOne(senderID);
-        console.log(mongo.findOne(senderID));
+        mongo.findOne(senderID, this.storeAlreadySeenWords);
 
         if (messageText) {
             var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
@@ -149,14 +154,14 @@ module.exports = {
                 //console.log("test:" + lStorage.load("messengerBotData"));
                 canzone = battiatoBeatsObject["no_match"][randomIndex];
                 voice.sendTextMessage(recipientId, canzone);
-                mongo.update(recipientId, canzone);
             } else {
                 voice.sendTextMessage(recipientId, canzone);
-                mongo.update(recipientId, canzone);
                 if (Math.random() < 0.7) { // manda questo solo il 70% delle volte
                     rilancione(recipientId);
                 }
             }
+            asw.push(canzone);
+            mongo.update(recipientId, asw);
         }, getRandomTime());
 
     },
