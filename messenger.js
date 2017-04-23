@@ -122,7 +122,7 @@ module.exports = {
 
     sendCanzone: function (recipientId, messageText, canzoniUsate, rilancioniUsati, chiarimentiUsati) {
         var rilancione = this.rilancione;
-        var getRandomChiarimento = this.getRandomChiarimento;
+        var getRandomChiarimento = this.getRandomChiarimento.bind(this);
         var messageTextWordsArray = messageText.split(' ').filter(function (frase) {
             var word = frase.match(/(\w+)/);
             return word && word[0].length > 3;
