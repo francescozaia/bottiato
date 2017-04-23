@@ -180,7 +180,7 @@ module.exports = {
     rilancione: function (recipientId, rilancioniUsati) {
         var getVoce = this.getVoce.bind(this);
         setTimeout(function() {
-            var rilancione = getVoce(battiatoBeatsObject["rilancione"], rilancioniUsati);
+            var rilancione = getVoce(battiatoBeatsObject["rilancioni"], rilancioniUsati);
             voice.sendTextMessage(recipientId, rilancione);
             mongo.update(recipientId, {
                 canzone: null,
