@@ -25,11 +25,7 @@ module.exports = {
 
     storeAlreadySeenWords: function(err, doc) {
         console.log("words: ", err, doc);
-        if( typeof doc.words === 'string' ) {
-            asw.push = doc.words;
-        } else {
-            asw = doc.words;
-        }
+        asw = doc.words;
 
     },
 

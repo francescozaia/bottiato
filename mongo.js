@@ -21,12 +21,19 @@ module.exports = {
         collection.findOne({ "_id": userID }, callback);
     },
     insert: function(userID) {
-        collection.insert({userID:userID, received: []});
+        collection.insert({userID:userID, words: []});
     },
     update: function(userID, words) {
         console.log("inserting: " +userID+ " " + words);
+        // ensure words is an array
+        var arr = [];
+        if( typeof words === 'string' ) {
+            arr.push = words;
+        } else {
+            arr = words;
+        }
         collection.update( { "_id": userID },
-                { "words": words },
+                { "words": arr },
                 { upsert: true } );
     }
 }
