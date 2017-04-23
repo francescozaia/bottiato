@@ -1,7 +1,8 @@
 var fs = require('fs'),
-    lStorage = require('./storage/localStorage.js'),
-    voice = require('./voice.js');
+    _ = require('lodash'),
+    voice = require('./voice.js'),
     mongo = require('./mongo.js');
+
 
 mongo.connect();
 
@@ -16,9 +17,6 @@ var getRandomInt = function (min, max) {
 var getRandomTime = function() {
     return Math.floor(Math.random() * (4000 - 1000)) + 1000;
 };
-/*lStorage.save("messengerBotData", {
-    "no_match": 0
-}, 60 * 24);*/
 
 module.exports = {
 
@@ -172,7 +170,15 @@ module.exports = {
     },
 
     getRandomChiarimento: function(recipientId, chiarimenti, chiarimentiUsati) {
-        var c = chiarimenti[Math.floor(Math.random() * chiarimenti.length)];
+        var c;
+        var chiarimentiDisponibili = _.difference(chiarimenti, chiarimentiUsati);
+        if (chiarimentiDisponibili.length) {
+            var c = chiarimentiDisponibili[Math.floor(Math.random() * chiarimentiDisponibili.length)];
+        } else {
+            var c = "finiti";
+        }
+        return c;
+        /*var c = chiarimenti[Math.floor(Math.random() * chiarimenti.length)];
         console.log("---------chiarimenti: ", chiarimenti);
         console.log("---------chiarimentiUsati: ", chiarimentiUsati);
         if (chiarimentiUsati.indexOf(c) > -1) {
@@ -189,7 +195,7 @@ module.exports = {
             }
 
         }
-        return c;
+        return c;*/
     },
 
     rilancione: function (recipientId, rilancioniUsati) {
