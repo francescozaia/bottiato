@@ -26,8 +26,10 @@ module.exports = {
         var timeOfMessage = event.timestamp;
         var message = event.message;
 
-        //console.log("Received message for user %d and page %d at %d with message:", senderID, recipientID, timeOfMessage);
+        /*
+        console.log("Received message for user %d and page %d at %d with message:", senderID, recipientID, timeOfMessage);
         console.log(JSON.stringify(message));
+         */
 
         var messageId = message.mid;
         var messageText = message.text;
@@ -35,7 +37,7 @@ module.exports = {
 
         // mongo.insertOne(senderID);
         mongo.findOne(senderID, function(err, doc) {
-            console.log("DOC", doc)
+            // console.log("DOC", doc)
             if (messageText) {
                 var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
                 /*if (cleaned.match( /(ciao|buongiorno|hey|ei|yo|hei|ehilà)/ )) {
@@ -181,14 +183,6 @@ module.exports = {
 
     },
 
-    getVoce: function(voci, vociUsate) {
-        var vociDisponibili = _.difference(voci, vociUsate);
-        // se ci sono ancora vociDisponibili, scelgo random tra quelle, altrimenti pesco tra tutte.
-        return (vociDisponibili.length) ?
-            vociDisponibili[Math.floor(Math.random() * vociDisponibili.length)] :
-            voci[Math.floor(Math.random() * voci.length)];
-    },
-
     rilancione: function (recipientId, rilancioniUsati) {
         var getVoce = this.getVoce.bind(this);
         setTimeout(function() {
@@ -200,6 +194,14 @@ module.exports = {
                 chiarimento: null
             });
         }, getRandomTime());
+    },
+
+    getVoce: function(voci, vociUsate) {
+        var vociDisponibili = _.difference(voci, vociUsate);
+        // se ci sono ancora vociDisponibili, scelgo random tra quelle, altrimenti pesco tra tutte.
+        return (vociDisponibili.length) ?
+            vociDisponibili[Math.floor(Math.random() * vociDisponibili.length)] :
+            voci[Math.floor(Math.random() * voci.length)];
     },
 
     sendGreetingText: function () {

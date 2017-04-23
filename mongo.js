@@ -30,10 +30,12 @@ module.exports = {
             var rilancioni = doc && doc.rilancioni ? doc.rilancioni : [];
             var chiarimenti = doc && doc.chiarimenti ? doc.chiarimenti : [];
             if (stringhe) {
+                /*
                 console.log("INSERTING for userID: ", userID);
                 console.log("Canzone: ", stringhe.canzone);
                 console.log("Rilancione: ", stringhe.rilancione);
                 console.log("Chiarimento: ", stringhe.chiarimento);
+                */
                 if (stringhe.canzone) {
                     canzoni.push(stringhe.canzone);
                 }
@@ -44,9 +46,6 @@ module.exports = {
                     chiarimenti.push(stringhe.chiarimento);
                 }
             }
-            console.log("canzoni:", canzoni);
-            console.log("rilancioni:", rilancioni);
-            console.log("chiarimenti:", chiarimenti);
             collection.update(
                 { "_id": userID },
                 {
