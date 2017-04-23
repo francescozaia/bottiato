@@ -186,7 +186,7 @@ module.exports = {
         // se ci sono ancora vociDisponibili, scelgo random tra quelle, altrimenti pesco tra tutte.
         return (vociDisponibili.length) ?
             vociDisponibili[Math.floor(Math.random() * vociDisponibili.length)] :
-            "(finiti)" + voci[Math.floor(Math.random() * voci.length)];
+            voci[Math.floor(Math.random() * voci.length)];
     },
 
     rilancione: function (recipientId, rilancioniUsati) {
