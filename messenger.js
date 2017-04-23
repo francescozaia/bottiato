@@ -49,7 +49,7 @@ module.exports = {
                 } else if (cleaned.match( /(video)/ )) {
                     this.sendVideoMessage(senderID);
                 } else {
-                    this.sendCanzone(senderID, cleaned, doc.canzoni);
+                    this.sendCanzone(senderID, cleaned, doc.canzoni, doc.rilancioni);
                 }
             } else if (messageAttachments) {
                 for (var i=0; i<messageAttachments.length; i++) {
@@ -119,7 +119,7 @@ module.exports = {
         });*/
     },
 
-    sendCanzone: function (recipientId, messageText, canzoniUsate) {
+    sendCanzone: function (recipientId, messageText, canzoniUsate, rilancioniUsati) {
 
         voice.sendTypingOn(recipientId);
 
@@ -153,7 +153,7 @@ module.exports = {
             } else {
                 voice.sendTextMessage(recipientId, canzone);
                 if (Math.random() < 0.7) { // manda questo solo il 70% delle volte
-                    rilancione(recipientId);
+                    rilancione(recipientId, rilancioniUsati);
                 }
             }
             mongo.update(recipientId, {
@@ -164,7 +164,8 @@ module.exports = {
 
     },
 
-    rilancione: function (recipientId) {
+    rilancione: function (recipientId, rilancioniUsati) {
+        console.log(">>>>",rilancioniUsati)
         setTimeout(function() {
             var rilancioneText = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
             voice.sendTextMessage(recipientId, rilancioneText);
