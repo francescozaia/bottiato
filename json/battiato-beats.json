@@ -414,7 +414,7 @@
     "Vieni a prendere un tè al Caffè de la Paix? Su vieni con me.",
     "Ancora oggi, le renne della tundra trasportano tribù di nomadi che percorrono migliaia di chilometri in un anno. E a vederli mi sembrano felici, ti sembrano felici?"
   ],
-  "no_match": [
+  "chiarimenti": [
     "Devo saperne di più.",
     "Davvero?",
     "Credo di capire. Ma dimmi di più.",
@@ -429,7 +429,7 @@
     "🤔",
     "🙄"
   ],
-  "immagini_descriptions": [
+  "descrizioniImmagini": [
     "",
     "Ti mando una mia foto degli anni '80.",
     "Che poi oggi credono esista solo Caparezza.",

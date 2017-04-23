@@ -73,7 +73,7 @@ module.exports = {
         setTimeout(function() {
             voice.sendTypingOff(recipientId);
             var selectedImage = getRandomInt(1, 47);
-            var txt = battiatoBeatsObject["immagini_descriptions"][selectedImage];
+            var txt = battiatoBeatsObject["descrizioniImmagini"][selectedImage];
             var immagine = "https://secure.canecanuto.com/" + selectedImage + ".jpg";
 
             voice.sendTextMessage(recipientId, txt);
