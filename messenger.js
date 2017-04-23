@@ -151,6 +151,7 @@ module.exports = {
                 mongo.insertOrUpdate(recipientId, canzone);
             } else {
                 voice.sendTextMessage(recipientId, canzone);
+                mongo.insertOrUpdate(recipientId, canzone);
                 if (Math.random() < 0.7) { // manda questo solo il 70% delle volte
                     rilancione(recipientId);
                 }
