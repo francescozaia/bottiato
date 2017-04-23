@@ -42,7 +42,7 @@ module.exports = {
         var messageAttachments = message.attachments;
 
         // mongo.insertOne(senderID);
-        mongo.findOne(senderID, this.storeAlreadySeenWords());
+        mongo.findOne(senderID, this.storeAlreadySeenWords.bind(this));
 
         if (messageText) {
             var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
