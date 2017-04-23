@@ -16,7 +16,10 @@ module.exports = {
             //db.close();
         });
     },
-    insertOne: function(userID) {
+    findOne: function(userID) {
+        return collection.findOne({ "_id": userID });
+    },
+    insert: function(userID) {
         collection.insert({userID:userID, received: []});
     },
     update: function(userID, words) {
