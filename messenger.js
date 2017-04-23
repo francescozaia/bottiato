@@ -148,10 +148,10 @@ module.exports = {
                 //console.log("test:" + lStorage.load("messengerBotData"));
                 canzone = battiatoBeatsObject["no_match"][randomIndex];
                 voice.sendTextMessage(recipientId, canzone);
-                mongo.insertOrUpdate(recipientId, canzone);
+                mongo.update(recipientId, canzone);
             } else {
                 voice.sendTextMessage(recipientId, canzone);
-                mongo.insertOrUpdate(recipientId, canzone);
+                mongo.update(recipientId, canzone);
                 if (Math.random() < 0.7) { // manda questo solo il 70% delle volte
                     rilancione(recipientId);
                 }
