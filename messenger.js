@@ -16,18 +16,11 @@ var getRandomInt = function (min, max) {
 var getRandomTime = function() {
     return Math.floor(Math.random() * (4000 - 1000)) + 1000;
 };
-var asw = [];
 /*lStorage.save("messengerBotData", {
     "no_match": 0
 }, 60 * 24);*/
 
 module.exports = {
-
-    storeAlreadySeenWords: function(err, doc) {
-        console.log("words: ", err, doc);
-        asw = doc.words;
-
-    },
 
     receivedMessage: function (event) {
         var senderID = event.sender.id;
@@ -43,33 +36,35 @@ module.exports = {
         var messageAttachments = message.attachments;
 
         // mongo.insertOne(senderID);
-        mongo.findOne(senderID, this.storeAlreadySeenWords);
-
-        if (messageText) {
-            var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
-            /*if (cleaned.match( /(ciao|buongiorno|hey|ei|yo|hei|ehilà)/ )) {
-                this.sendSaluto(senderID);
-            } else*/
-            if (cleaned.match( /(foto|fotografia|immagine)/ )) {
-                this.sendTextAndImg(senderID);
-            } else if (cleaned.match( /(emoji)/ )) {
-                this.sendEmoji(senderID);
-            } else if (cleaned.match( /(video)/ )) {
-                this.sendVideoMessage(senderID);
-            } else {
-                this.sendCanzone(senderID, cleaned);
-            }
-        } else if (messageAttachments) {
-            for (var i=0; i<messageAttachments.length; i++) {
-                if (messageAttachments[i].type === "image") {
-                    if (messageAttachments[i].payload["sticker_id"] && messageAttachments[i].payload["sticker_id"].toString() === "369239263222822") { //thumbup
-                        this.sendTxt(senderID, "(Y)");
-                    } else {
-                        this.sendTextAndImg(senderID);
+        mongo.findOne(senderID, function(err, doc) {
+            if (messageText) {
+                var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
+                /*if (cleaned.match( /(ciao|buongiorno|hey|ei|yo|hei|ehilà)/ )) {
+                 this.sendSaluto(senderID);
+                 } else*/
+                if (cleaned.match( /(foto|fotografia|immagine)/ )) {
+                    this.sendTextAndImg(senderID);
+                } else if (cleaned.match( /(emoji)/ )) {
+                    this.sendEmoji(senderID);
+                } else if (cleaned.match( /(video)/ )) {
+                    this.sendVideoMessage(senderID);
+                } else {
+                    this.sendCanzone(senderID, cleaned, doc.canzoni);
+                }
+            } else if (messageAttachments) {
+                for (var i=0; i<messageAttachments.length; i++) {
+                    if (messageAttachments[i].type === "image") {
+                        if (messageAttachments[i].payload["sticker_id"] && messageAttachments[i].payload["sticker_id"].toString() === "369239263222822") { //thumbup
+                            this.sendTxt(senderID, "(Y)");
+                        } else {
+                            this.sendTextAndImg(senderID);
+                        }
                     }
                 }
             }
-        }
+        });
+
+
     },
     sendTextAndImg: function (recipientId) {
 
@@ -124,7 +119,7 @@ module.exports = {
         });*/
     },
 
-    sendCanzone: function (recipientId, messageText) {
+    sendCanzone: function (recipientId, messageText, canzoniUsate) {
 
         voice.sendTypingOn(recipientId);
 
@@ -146,14 +141,13 @@ module.exports = {
 
         var canzone = filtered[0];
         var rilancione = this.rilancione;
+
         setTimeout(function() {
             voice.sendTypingOff(recipientId);
-            console.log("asw.indexOf(canzone)",asw.indexOf(canzone));
-            if (!canzone || canzone === '' || asw.indexOf(canzone) > -1) {
+            console.log("asw.indexOf(canzone)",canzoniUsate.indexOf(canzone));
+            if (!canzone || canzone === '' || canzoniUsate.indexOf(canzone) > -1) {
                 // se non c'è corrispondenza vai di random su no_match
                 var randomIndex = Math.floor(Math.random() * battiatoBeatsObject["no_match"].length);
-                //var i = lStorage.load("messengerBotData")["no_match"]
-                //console.log("test:" + lStorage.load("messengerBotData"));
                 canzone = battiatoBeatsObject["no_match"][randomIndex];
                 voice.sendTextMessage(recipientId, canzone);
             } else {
@@ -162,8 +156,10 @@ module.exports = {
                     rilancione(recipientId);
                 }
             }
-            asw.push(canzone);
-            mongo.update(recipientId, asw);
+            mongo.update(recipientId, {
+                canzone: canzone,
+                rilancione: null
+            });
         }, getRandomTime());
 
     },
@@ -172,6 +168,10 @@ module.exports = {
         setTimeout(function() {
             var rilancioneText = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
             voice.sendTextMessage(recipientId, rilancioneText);
+            mongo.update(recipientId, {
+                canzone: null,
+                rilancione: rilancioneText
+            });
         }, getRandomTime());
     },
 

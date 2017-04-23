@@ -20,20 +20,25 @@ module.exports = {
         console.log(userID, callback);
         collection.findOne({ "_id": userID }, callback);
     },
-    insert: function(userID) {
-        collection.insert({userID:userID, words: []});
-    },
-    update: function(userID, words) {
-        console.log("inserting: " +userID+ " " + words);
-        // ensure words is an array
-        var arr = [];
-        if( typeof words === 'string' ) {
-            arr.push = words;
-        } else {
-            arr = words;
-        }
-        collection.update( { "_id": userID },
-                { "words": arr },
-                { upsert: true } );
+    update: function(userID, stringhe) {
+        console.log("inserting: " +userID+ " " + stringhe.canzone + " " + stringhe.rilancione);
+        collection.findOne({ "_id": userID }, function(err, doc) {
+            var canzoni = doc.canzoni ? doc.canzoni : [];
+            var rilancioni = doc.rilancioni ? doc.rilancioni : [];
+            if (stringhe.canzone) {
+                canzoni.push(stringhe.canzone);
+            }
+            if (stringhe.rilancione) {
+                rilancioni.push(stringhe.rilancione);
+            }
+            console.log("canzoni:", canzoni);
+            console.log("rilancioni:", rilancioni);
+            collection.update(
+                { "_id": userID },
+                { "canzoni": canzoni },
+                { "rilancioni": rilancioni },
+                { upsert: true }
+            );
+        });
     }
 }
