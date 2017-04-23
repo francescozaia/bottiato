@@ -121,16 +121,17 @@ module.exports = {
     },
 
     sendCanzone: function (recipientId, messageText, canzoniUsate, rilancioniUsati) {
-
-        voice.sendTypingOn(recipientId);
-
+        var rilancione = this.rilancione;
         var messageTextWordsArray = messageText.split(' ').filter(function (frase) {
             var word = frase.match(/(\w+)/);
             return word && word[0].length > 3;
         });
         var canzone = '';
         var filtered = [];
-        filtered = battiatoBeatsObject["songs"].filter(function(item){
+
+        voice.sendTypingOn(recipientId);
+
+        filtered = battiatoBeatsObject["canzoni"].filter(function(item){
             for (var i = 0; i < messageTextWordsArray.length; i++) {
                 var myPattern = new RegExp('\\b' + messageTextWordsArray[i] + '\\b', 'gi'); // ho aggiunto gli spazi
                 var matches = item.match(myPattern);
@@ -140,27 +141,31 @@ module.exports = {
             }
         });
 
-        var canzone = filtered[0];
-        var rilancione = this.rilancione;
+        var canzoneTrovata = filtered[0]; //mettere un random tra i match "ciao"
 
         setTimeout(function() {
             voice.sendTypingOff(recipientId);
-            console.log("asw.indexOf(canzone)",canzoniUsate.indexOf(canzone));
-            if (!canzone || canzone === '' || canzoniUsate.indexOf(canzone) > -1) {
-                // se non c'è corrispondenza vai di random su no_match
-                var randomIndex = Math.floor(Math.random() * battiatoBeatsObject["no_match"].length);
-                canzone = battiatoBeatsObject["no_match"][randomIndex];
-                voice.sendTextMessage(recipientId, canzone);
+            if (!canzoneTrovata || canzoneTrovata === '' || canzoniUsate.indexOf(canzoneTrovata) > -1) {
+                // se non c'è corrispondenza vai di random su chiarimenti
+                var chiarimento = battiatoBeatsObject["chiarimenti"][Math.floor(Math.random() * battiatoBeatsObject["chiarimenti"].length)]
+                voice.sendTextMessage(recipientId, chiarimento);
+                mongo.update(recipientId, {
+                    canzone: null,
+                    rilancione: null,
+                    chiarimento: chiarimento
+                });
             } else {
-                voice.sendTextMessage(recipientId, canzone);
+                voice.sendTextMessage(recipientId, canzoneTrovata);
+                mongo.update(recipientId, {
+                    canzone: canzoneTrovata,
+                    rilancione: null,
+                    chiarimento: null
+                });
                 if (Math.random() < 0.7) { // manda questo solo il 70% delle volte
                     rilancione(recipientId, rilancioniUsati);
                 }
             }
-            mongo.update(recipientId, {
-                canzone: canzone,
-                rilancione: null
-            });
+
         }, getRandomTime());
 
     },
@@ -168,11 +173,12 @@ module.exports = {
     rilancione: function (recipientId, rilancioniUsati) {
         console.log(">>>>",rilancioniUsati)
         setTimeout(function() {
-            var rilancioneText = battiatoBeatsObject["more"][Math.floor(Math.random() * battiatoBeatsObject["more"].length)];
-            voice.sendTextMessage(recipientId, rilancioneText);
+            var rilancione = battiatoBeatsObject["rilancioni"][Math.floor(Math.random() * battiatoBeatsObject["rilancioni"].length)];
+            voice.sendTextMessage(recipientId, rilancione);
             mongo.update(recipientId, {
                 canzone: null,
-                rilancione: rilancioneText
+                rilancione: rilancione,
+                chiarimento: null
             });
         }, getRandomTime());
     },

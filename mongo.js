@@ -28,17 +28,25 @@ module.exports = {
         collection.findOne({ "_id": userID }, function(err, doc) {
             var canzoni = doc.canzoni ? doc.canzoni : [];
             var rilancioni = doc.rilancioni ? doc.rilancioni : [];
+            var chiarimenti = doc.chiarimenti ? doc.chiarimenti : [];
             if (stringhe) {
-                console.log("inserting: " +userID+ " " + stringhe.canzone + " " + stringhe.rilancione);
+                console.log("INSERTING for userID: ", userID);
+                console.log("Canzone: ", stringhe.canzone);
+                console.log("Rilancione: ", stringhe.rilancione);
+                console.log("Chiarimento: ", stringhe.chiarimento);
                 if (stringhe.canzone) {
                     canzoni.push(stringhe.canzone);
                 }
                 if (stringhe.rilancione) {
                     rilancioni.push(stringhe.rilancione);
                 }
+                if (stringhe.chiarimento) {
+                    chiarimenti.push(stringhe.chiarimento);
+                }
             }
             console.log("canzoni:", canzoni);
             console.log("rilancioni:", rilancioni);
+            console.log("chiarimenti:", chiarimenti);
             collection.update(
                 { "_id": userID },
                 { "canzoni": canzoni },

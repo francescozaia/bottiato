@@ -2,7 +2,7 @@
   "greetings": [
     ""
   ],
-  "songs": [
+  "canzoni": [
     "Un uomo di una certa età mi offriva spesso sigarette turche.",
     "Spero che ritorni presto l’Era del Cinghiale Bianco.",
     "Profumi indescrivibili nell’aria della sera, studenti di Damasco vestiti tutti uguali.",
@@ -378,7 +378,7 @@
     "E lo sapeva bene Paganini, che il diavolo è mancino, è subdolo e suona il violino",
     "Tempo non c'è tempo, sempre più in affanno inseguo il nostro tempo, vuoto di senso senso di vuoto."
   ],
-  "more": [
+  "rilancioni": [
     "E tu, come stai oggi?",
     "Cosa vorresti per il tuo compleanno?",
     "Com’è andata la tua giornata?",
@@ -386,7 +386,7 @@
     "Cosa ti tormenta in questi giorni?",
     "Qual è la tua musica preferita?",
     "Perché mi guardi e non favelli?",
-    "Quand’è l’ultima volta che hai cantato da solo? Cosa cantavi?",
+    "Quand’è l’ultima volta che hai cantato da solo? E cosa cantavi?",
     "In quale modo ti piacerebbe diventare famoso?",
     "Cosa fa di un giorno un giorno perfetto per te?",
     "Se potessi cambiare qualcosa del modo in cui ti hanno cresciuto, cosa cambieresti?",
@@ -394,7 +394,6 @@
     "Se ti potessi svegliare domani, con una nuova qualità, quale vorresti che fosse?",
     "Se avessi una sfera di cristallo cosa vorresti sapere?",
     "Cosa sogni di fare da tanto tempo? Apriti",
-    "Cosa reputi fondamentale in un’amicizia?",
     "Qual è il tuo ricordo più bello?",
     "Qual è il tuo ricordo più brutto?",
     "Che ruolo ha l’amore nella tua vita?",
@@ -405,15 +404,30 @@
     "Ora dimmi, qual è il tuo peggior rimpianto?",
     "E tu, cosa salveresti se la tua casa stesse andando a fuoco?",
     "Non hai fiori bianchi per me?",
+    "Ti piace Schubert?",
     "Finisce qua, chi se ne va che male fa?",
     "Ma non vi danno un po’ di dispiacere quei corpi in terra senza più calore?",
     "Ma come scusare le iene negli stadi e quelle dei giornali?",
     "Perché bella ragazza padovana ti vuoi fare una comune giù in Toscana?",
     "Ti vedo stanca hai le borse sotto gli occhi, come ti trovi a Berlino Est?",
-    "Hai le borse sotto gli occhi come ti trovi a Berlino Est?",
-    "Ti piace Schubert?",
+    "Hai le borse sotto gli occhi, come ti trovi a Berlino Est?",
     "Vieni a prendere un tè al Caffè de la Paix? Su vieni con me.",
     "Ancora oggi, le renne della tundra trasportano tribù di nomadi che percorrono migliaia di chilometri in un anno. E a vederli mi sembrano felici, ti sembrano felici?"
+  ],
+  "no_match": [
+    "Devo saperne di più.",
+    "Davvero?",
+    "Credo di capire. Ma dimmi di più.",
+    "Pensano lo stesso anche i sufi che ballano dervisci rotanti. Dimmi di più.",
+    "Tu dici? Dammi più dettagli.",
+    "Sì, ma lo pensi davvero?",
+    "Sai quando chiedevo se avessi mai veduto a Borgo Panigale un'aurora simile alla boreale? Ora però devo confessarti un segreto, nemmeno io l’ho mai vista. Chi diavolo ci vorrebbe mai andare a Borgo Panigale?",
+    "Come se fosse antani però.",
+    "Mi supercazzoli?",
+    "Il mondo è grande 🗺",
+    "🖌",
+    "🤔",
+    "🙄"
   ],
   "immagini_descriptions": [
     "",
@@ -439,17 +453,17 @@
     "La vuoi una mia fototessera?",
     "Qui mi vedi in un momento abbastanza imbarazzante, sia come stile che come atteggiamento.",
     "Sono sempre un po' infastidito quando devo stare in posa.",
-    "E sempre canto.",
+    "E sempre canto. 🎧",
     "Ti confiderò che anch'io oggi uso strumenti modernissimi.",
     "Un giorno puoi passare dal mio studio, c'è molto da vedere e ascoltare.",
     "Di questa foto mi vergogno un po', sembro Berlusconi con i capelli lunghi, non trovi?",
     "Chissà a cosa pensavo in questa foto, sorridevo contento.",
-    "Anche oggi sono molto felice.",
+    "Anche oggi sono molto felice. 🤗",
     "Conservo ricordi multicolore anche se immortalati nel bianco e nero.",
     "Negli anni '90 andavano di moda questi occhiali sottili e dorati.",
     "E' grazie a te se ho sempre potuto fare ciò che amo.",
-    "Chissà a cosa pensavo mentre mi facevano questa foto",
-    "Quante foto scattano a mia insaputa...",
+    "Chissà a cosa pensavo mentre mi facevano questa foto.",
+    "Quante foto scattano a mia insaputa... 😓",
     "Questa mia recente foto mi riempie di gioia perché ho i capelli scapigliati dal vento.",
     "Ti mando una mia foto promozionale con Alice",
     "Sono sempre un po' infastidito quando devo stare in posa.",
@@ -457,23 +471,11 @@
     "E' tuttora inarrivabile il fervore creativo che avevamo negli anni '70.",
     "Quanto mi sono divertito a fare musica... qui una mia foto mentre discuto di chissà che cosa.",
     "Ti mando una mia classica di Sanremo.",
-    "Eccoti un mio fotogramma degli anni '70",
-    "Eccoti un altro mio fotogramma degli anni '70",
+    "Eccoti un mio fotogramma di quegli anni.",
+    "Eccoti un altro mio fotogramma degli anni '70.",
     "In questa foto dovevano andare molto di moda gli hippies in America.",
-    "Ti mando una mia foto recente.",
+    "Ti mando una mia foto recente. 🤳",
     "Io e la mia Fender. Non sono mai stato un appassionato di strumenti, ma amo sperimentarne molti.",
     "Ti mando una mia foto di quel brutto periodo in cui avevo capelli corti ed ordinati."
-  ],
-  "no_match": [
-    "🤔 Devo saperne di più.",
-    "Davvero?",
-    "Credo di capire. Ma dimmi di più.",
-    "Pensano lo stesso anche i sufi che ballano dervisci rotanti. Dimmi di più.",
-    "Tu dici? Dammi più dettagli.",
-    "Sì, ma lo pensi davvero?",
-    "Sai quando chiedevo se avessi mai veduto a Borgo Panigale un'aurora simile alla boreale? Ora però devo confessarti un segreto, nemmeno io l’ho mai vista. Chi diavolo ci vorrebbe mai andare a Borgo Panigale?"
-  ],
-  "emoji": [
-    "😁"
   ]
 }
