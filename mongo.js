@@ -17,6 +17,7 @@ module.exports = {
         });
     },
     findOne: function(userID, callback) {
+        console.log(userID, callback);
         collection.findOne({ "_id": userID }, callback);
     },
     insert: function(userID) {
