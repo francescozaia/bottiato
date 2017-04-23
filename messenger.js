@@ -173,6 +173,8 @@ module.exports = {
 
     getRandomChiarimento: function(recipientId, chiarimenti, chiarimentiUsati) {
         var c = chiarimenti[Math.floor(Math.random() * chiarimenti.length)];
+        console.log("---------chiarimenti: ", chiarimenti);
+        console.log("---------chiarimentiUsati: ", chiarimentiUsati);
         if (chiarimentiUsati.indexOf(c) > -1) {
             var trovato = chiarimentiUsati[chiarimentiUsati.indexOf(c)];
             console.log("trovato: ",trovato);
