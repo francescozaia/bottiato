@@ -1,6 +1,9 @@
 var fs = require('fs'),
     lStorage = require('./storage/localStorage.js'),
     voice = require('./voice.js');
+    mongo = require('./mongo.js');
+
+mongo.connect();
 
 var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/json/battiato-beats.json', 'utf8'));
 
@@ -32,6 +35,8 @@ module.exports = {
         var messageId = message.mid;
         var messageText = message.text;
         var messageAttachments = message.attachments;
+
+        mongo.insertOne(senderID);
 
         if (messageText) {
             var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();

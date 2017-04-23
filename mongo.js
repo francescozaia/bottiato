@@ -5,15 +5,18 @@ var url = 'mongodb://localhost:27017/users';
 var collection;
 
 module.exports = {
-    connect: function () {
+    connect: function() {
         MongoClient.connect(url, function(err, db) {
             collection = db.collection('users_collection');
         });
     },
-    findAll: function () {
+    findAll: function() {
         collection.find().toArray(function(err, docs) {
             console.log(docs);
             //db.close();
         });
+    },
+    insertOne: function(userID) {
+        collection.insert({userID:userID, received: []});
     }
 }
