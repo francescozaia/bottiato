@@ -119,8 +119,8 @@ module.exports = {
     },
 
     sendCanzone: function (recipientId, messageText, canzoniUsate, rilancioniUsati, chiarimentiUsati) {
-        var rilancione = this.rilancione;
-        var getRandomChiarimento = this.getRandomChiarimento.bind(this);
+        var rilancione = this.rilancione.bind(this);
+        var getVoce = this.getVoce.bind(this);
         var messageTextWordsArray = messageText.split(' ').filter(function (frase) {
             var word = frase.match(/(\w+)/);
             return word && word[0].length > 3;
@@ -146,7 +146,7 @@ module.exports = {
             voice.sendTypingOff(recipientId);
             if (!canzoneTrovata || canzoneTrovata === '' || canzoniUsate.indexOf(canzoneTrovata) > -1) {
                 // se non c'è corrispondenza vai di random su chiarimenti
-                var chiarimento = getRandomChiarimento(recipientId, battiatoBeatsObject["chiarimenti"], chiarimentiUsati);
+                var chiarimento = getVoce(battiatoBeatsObject["chiarimenti"], chiarimentiUsati);
                 voice.sendTextMessage(recipientId, chiarimento);
                 mongo.update(recipientId, {
                     canzone: null,
@@ -169,39 +169,18 @@ module.exports = {
 
     },
 
-    getRandomChiarimento: function(recipientId, chiarimenti, chiarimentiUsati) {
-        var c;
-        var chiarimentiDisponibili = _.difference(chiarimenti, chiarimentiUsati);
-        if (chiarimentiDisponibili.length) {
-            var c = chiarimentiDisponibili[Math.floor(Math.random() * chiarimentiDisponibili.length)];
-        } else {
-            var c = "finiti";
-        }
-        return c;
-        /*var c = chiarimenti[Math.floor(Math.random() * chiarimenti.length)];
-        console.log("---------chiarimenti: ", chiarimenti);
-        console.log("---------chiarimentiUsati: ", chiarimentiUsati);
-        if (chiarimentiUsati.indexOf(c) > -1) {
-            var trovato = chiarimentiUsati[chiarimentiUsati.indexOf(c)];
-            console.log("trovato: ",trovato);
-            if (chiarimenti.length > 1) {
-                this.getRandomChiarimento(chiarimenti.remove(trovato), chiarimenti, chiarimentiUsati);
-            } else {
-                mongo.update(recipientId, {
-                    canzone: null,
-                    rilancione: null,
-                    chiarimento: []
-                });
-            }
-
-        }
-        return c;*/
+    getVoce: function(voci, vociUsate) {
+        var vociDisponibili = _.difference(voci, vociUsate);
+        // se ci sono ancora vociDisponibili, scelgo random tra quelle, altrimenti pesco tra tutte.
+        return (vociDisponibili.length) ?
+            vociDisponibili[Math.floor(Math.random() * vociDisponibili.length)] :
+            "(finiti)" + voci[Math.floor(Math.random() * voci.length)];
     },
 
     rilancione: function (recipientId, rilancioniUsati) {
-        console.log(">>>>",rilancioniUsati)
+        var getVoce = this.getVoce.bind(this);
         setTimeout(function() {
-            var rilancione = battiatoBeatsObject["rilancioni"][Math.floor(Math.random() * battiatoBeatsObject["rilancioni"].length)];
+            var rilancione = getVoce(battiatoBeatsObject["rilancione"], rilancioniUsati);
             voice.sendTextMessage(recipientId, rilancione);
             mongo.update(recipientId, {
                 canzone: null,
