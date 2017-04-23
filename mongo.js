@@ -18,5 +18,15 @@ module.exports = {
     },
     insertOne: function(userID) {
         collection.insert({userID:userID, received: []});
+    },
+    insertOrUpdate: function(userID, words) {
+        collection.findAndModify({
+            query: { _id: userID },
+            update: {
+                $setOnInsert: { words: words }
+            },
+            new: true,   // return new doc if one is upserted
+            upsert: true // insert the document if it does not exist
+        })
     }
 }

@@ -38,6 +38,14 @@ module.exports = {
 
         mongo.insertOne(senderID);
 
+        collection.findOne({a:2}, {fields:{b:1}}, function(err, doc) {
+            assert.equal(null, err);
+            assert.equal(null, doc.a);
+            assert.equal(2, doc.b);
+
+            db.close();
+        });
+
         if (messageText) {
             var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
             /*if (cleaned.match( /(ciao|buongiorno|hey|ei|yo|hei|ehilà)/ )) {
@@ -148,6 +156,7 @@ module.exports = {
                 //console.log("test:" + lStorage.load("messengerBotData"));
                 canzone = battiatoBeatsObject["no_match"][randomIndex];
                 voice.sendTextMessage(recipientId, canzone);
+                mongo.insertOrUpdate(recipientId, canzone);
             } else {
                 voice.sendTextMessage(recipientId, canzone);
                 if (Math.random() < 0.7) { // manda questo solo il 70% delle volte
