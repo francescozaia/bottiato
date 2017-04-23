@@ -23,8 +23,8 @@ var asw = [];
 
 module.exports = {
 
-    storeAlreadySeenWords: function(doc) {
-        console.log("words: ", doc);
+    storeAlreadySeenWords: function(err, doc) {
+        console.log("words: ", err, doc);
         asw = doc.words;
     },
 
@@ -42,7 +42,7 @@ module.exports = {
         var messageAttachments = message.attachments;
 
         // mongo.insertOne(senderID);
-        mongo.findOne(senderID, this.storeAlreadySeenWords.bind(this));
+        mongo.findOne(senderID, this.storeAlreadySeenWords);
 
         if (messageText) {
             var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
