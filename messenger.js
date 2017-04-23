@@ -52,11 +52,12 @@ module.exports = {
                 }
             } else if (messageAttachments) {
                 for (var i=0; i<messageAttachments.length; i++) {
+                    // se mandi un like, ti rimanda un like, altrimenti una gif
                     if (messageAttachments[i].type === "image") {
                         if (messageAttachments[i].payload["sticker_id"] && messageAttachments[i].payload["sticker_id"].toString() === "369239263222822") { //thumbup
                             this.sendTxt(senderID, "(Y)");
                         } else {
-                            this.sendTextAndImg(senderID);
+                            this.sendTextAndGif(senderID);
                         }
                     }
                 }
@@ -65,8 +66,19 @@ module.exports = {
 
 
     },
-    sendTextAndImg: function (recipientId) {
+    sendTextAndGif: function (recipientId) {
+        voice.sendTypingOn(recipientId);
+        setTimeout(function() {
+            voice.sendTypingOff(recipientId);
+            var selectedImage = getRandomInt(1, 11);
+            var txt = battiatoBeatsObject["descrizioniGif"][selectedImage];
+            var immagine = "https://secure.canecanuto.com/" + selectedImage + ".gif";
 
+            voice.sendTextMessage(recipientId, txt);
+            voice.sendImageMessage(recipientId, immagine);
+        }, getRandomTime());
+    },
+    sendTextAndImg: function (recipientId) {
         voice.sendTypingOn(recipientId);
         setTimeout(function() {
             voice.sendTypingOff(recipientId);
