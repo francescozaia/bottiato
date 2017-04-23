@@ -49,9 +49,13 @@ module.exports = {
             console.log("chiarimenti:", chiarimenti);
             collection.update(
                 { "_id": userID },
-                { "canzoni": canzoni },
-                { "rilancioni": rilancioni },
-                { "chiarimenti": chiarimenti },
+                {
+                    $set: {
+                        "canzoni": canzoni,
+                        "rilancioni": rilancioni,
+                        "chiarimenti": chiarimenti
+                    }
+                },
                 { upsert: true }
             );
         });
