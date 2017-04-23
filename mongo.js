@@ -20,6 +20,7 @@ module.exports = {
         collection.insert({userID:userID, received: []});
     },
     insertOrUpdate: function(userID, words) {
+        console.log("inserting: " +userID+ " " + words)
         collection.findAndModify({
             query: { _id: userID },
             update: {
