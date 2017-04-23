@@ -24,11 +24,12 @@ module.exports = {
 
     },
     update: function(userID, stringhe) {
-        console.log("inserting: " +userID+ " " + stringhe.canzone + " " + stringhe.rilancione);
+
         collection.findOne({ "_id": userID }, function(err, doc) {
             var canzoni = doc.canzoni ? doc.canzoni : [];
             var rilancioni = doc.rilancioni ? doc.rilancioni : [];
             if (stringhe) {
+                console.log("inserting: " +userID+ " " + stringhe.canzone + " " + stringhe.rilancione);
                 if (stringhe.canzone) {
                     canzoni.push(stringhe.canzone);
                 }
