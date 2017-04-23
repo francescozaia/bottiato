@@ -26,9 +26,9 @@ module.exports = {
     update: function(userID, stringhe) {
 
         collection.findOne({ "_id": userID }, function(err, doc) {
-            var canzoni = doc.canzoni ? doc.canzoni : [];
-            var rilancioni = doc.rilancioni ? doc.rilancioni : [];
-            var chiarimenti = doc.chiarimenti ? doc.chiarimenti : [];
+            var canzoni = doc && doc.canzoni ? doc.canzoni : [];
+            var rilancioni = doc && doc.rilancioni ? doc.rilancioni : [];
+            var chiarimenti = doc && doc.chiarimenti ? doc.chiarimenti : [];
             if (stringhe) {
                 console.log("INSERTING for userID: ", userID);
                 console.log("Canzone: ", stringhe.canzone);
