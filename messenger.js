@@ -50,7 +50,7 @@ module.exports = {
                 } else if (cleaned.match( /(video)/ )) {
                     this.sendVideoMessage(senderID);
                 } else {
-                    this.sendCanzone(senderID, cleaned, doc.canzoni, doc.rilancioni);
+                    this.sendCanzone(senderID, cleaned, doc.canzoni, doc.rilancioni, doc.chiarimenti);
                 }
             } else if (messageAttachments) {
                 for (var i=0; i<messageAttachments.length; i++) {
@@ -120,8 +120,9 @@ module.exports = {
         });*/
     },
 
-    sendCanzone: function (recipientId, messageText, canzoniUsate, rilancioniUsati) {
+    sendCanzone: function (recipientId, messageText, canzoniUsate, rilancioniUsati, chiarimentiUsati) {
         var rilancione = this.rilancione;
+        var getRandomChiarimento = this.getRandomChiarimento;
         var messageTextWordsArray = messageText.split(' ').filter(function (frase) {
             var word = frase.match(/(\w+)/);
             return word && word[0].length > 3;
@@ -147,7 +148,7 @@ module.exports = {
             voice.sendTypingOff(recipientId);
             if (!canzoneTrovata || canzoneTrovata === '' || canzoniUsate.indexOf(canzoneTrovata) > -1) {
                 // se non c'è corrispondenza vai di random su chiarimenti
-                var chiarimento = battiatoBeatsObject["chiarimenti"][Math.floor(Math.random() * battiatoBeatsObject["chiarimenti"].length)]
+                var chiarimento = getRandomChiarimento(recipientId, battiatoBeatsObject["chiarimenti"], chiarimentiUsati);
                 voice.sendTextMessage(recipientId, chiarimento);
                 mongo.update(recipientId, {
                     canzone: null,
@@ -168,6 +169,24 @@ module.exports = {
 
         }, getRandomTime());
 
+    },
+
+    getRandomChiarimento: function(recipientId, chiarimenti, chiarimentiUsati) {
+        var c = chiarimenti[Math.floor(Math.random() * chiarimenti.length)];
+        if (chiarimentiUsati.indexOf(chiarimentiUsati) > -1) {
+            var trovato = chiarimentiUsati[chiarimentiUsati.indexOf(chiarimentiUsati)];
+            if (chiarimenti.length > 1) {
+                this.getRandomChiarimento(chiarimenti.remove(trovato));
+            } else {
+                mongo.update(recipientId, {
+                    canzone: null,
+                    rilancione: null,
+                    chiarimento: []
+                });
+            }
+
+        }
+        return c;
     },
 
     rilancione: function (recipientId, rilancioniUsati) {
