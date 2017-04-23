@@ -21,7 +21,7 @@ module.exports = {
     },
     update: function(userID, words) {
         console.log("inserting: " +userID+ " " + words);
-        collection.update( { "_id.name": "Francesco Zaia", "_id.uid": userID },
+        collection.update( { "_id": userID },
                 { "words": words },
                 { upsert: true } );
     }
