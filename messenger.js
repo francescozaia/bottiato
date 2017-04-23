@@ -4,7 +4,7 @@ var fs = require('fs'),
     mongo = require('./mongo.js');
 
 
-mongo.connect();
+
 
 var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/bottiato/json/battiato-beats.json', 'utf8'));
 

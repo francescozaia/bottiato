@@ -9,6 +9,7 @@ Array.prototype.remove = function() {
     return this;
 };
 
+
 var bodyParser = require('body-parser'),
     path = require('path'),
     crypto = require('crypto'),
@@ -17,8 +18,10 @@ var bodyParser = require('body-parser'),
     fs = require('fs'),
     http = require('http'),
     https = require('https'),
-    messenger = require('./messenger.js');
+    messenger = require('./messenger.js'),
     mongo = require('./mongo.js');
+
+mongo.connect();
 
 var app = express();
 

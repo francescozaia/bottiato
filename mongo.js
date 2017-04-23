@@ -10,6 +10,9 @@ module.exports = {
             collection = db.collection('users_collection');
         });
     },
+    cleanup: function () {
+        collection.remove();
+    },
     findAll: function() {
         collection.find().toArray(function(err, docs) {
             console.log(docs);
