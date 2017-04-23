@@ -37,6 +37,7 @@ module.exports = {
 
         // mongo.insertOne(senderID);
         mongo.findOne(senderID, function(err, doc) {
+            console.log("DOC", doc)
             if (messageText) {
                 var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
                 /*if (cleaned.match( /(ciao|buongiorno|hey|ei|yo|hei|ehilà)/ )) {
