@@ -148,7 +148,8 @@ module.exports = {
         var rilancione = this.rilancione;
         setTimeout(function() {
             voice.sendTypingOff(recipientId);
-            if (!canzone || canzone === '') {
+            console.log("asw.indexOf(canzone)",asw.indexOf(canzone));
+            if (!canzone || canzone === '' || asw.indexOf(canzone) > -1) {
                 // se non c'è corrispondenza vai di random su no_match
                 var randomIndex = Math.floor(Math.random() * battiatoBeatsObject["no_match"].length);
                 //var i = lStorage.load("messengerBotData")["no_match"]
