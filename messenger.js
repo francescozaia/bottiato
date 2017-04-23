@@ -36,7 +36,7 @@ module.exports = {
         var messageText = message.text;
         var messageAttachments = message.attachments;
 
-        mongo.insertOne(senderID);
+        // mongo.insertOne(senderID);
 
         if (messageText) {
             var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
