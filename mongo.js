@@ -17,19 +17,24 @@ module.exports = {
         });
     },
     findOne: function(userID, callback) {
-        console.log(userID, callback);
-        collection.findOne({ "_id": userID }, callback);
+        this.update(userID);
+        setTimeout(function() {
+            collection.findOne({ "_id": userID }, callback);
+        }, 1000);
+
     },
     update: function(userID, stringhe) {
         console.log("inserting: " +userID+ " " + stringhe.canzone + " " + stringhe.rilancione);
         collection.findOne({ "_id": userID }, function(err, doc) {
             var canzoni = doc.canzoni ? doc.canzoni : [];
             var rilancioni = doc.rilancioni ? doc.rilancioni : [];
-            if (stringhe.canzone) {
-                canzoni.push(stringhe.canzone);
-            }
-            if (stringhe.rilancione) {
-                rilancioni.push(stringhe.rilancione);
+            if (stringhe) {
+                if (stringhe.canzone) {
+                    canzoni.push(stringhe.canzone);
+                }
+                if (stringhe.rilancione) {
+                    rilancioni.push(stringhe.rilancione);
+                }
             }
             console.log("canzoni:", canzoni);
             console.log("rilancioni:", rilancioni);
