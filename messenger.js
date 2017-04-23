@@ -175,6 +175,7 @@ module.exports = {
         var c = chiarimenti[Math.floor(Math.random() * chiarimenti.length)];
         if (chiarimentiUsati.indexOf(chiarimentiUsati) > -1) {
             var trovato = chiarimentiUsati[chiarimentiUsati.indexOf(chiarimentiUsati)];
+            console.log("trovato: ",trovato);
             if (chiarimenti.length > 1) {
                 this.getRandomChiarimento(chiarimenti.remove(trovato));
             } else {
