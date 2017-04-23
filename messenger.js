@@ -24,7 +24,7 @@ var asw = [];
 module.exports = {
 
     storeAlreadySeenWords: function(doc) {
-        console.log("words: ", doc.words);
+        console.log("words: ", doc);
         asw = doc.words;
     },
 
@@ -42,7 +42,7 @@ module.exports = {
         var messageAttachments = message.attachments;
 
         // mongo.insertOne(senderID);
-        mongo.findOne(senderID, this.storeAlreadySeenWords);
+        mongo.findOne(senderID, this.storeAlreadySeenWords());
 
         if (messageText) {
             var cleaned = messageText.toLowerCase().replace(/!\?/g,'').trim();
