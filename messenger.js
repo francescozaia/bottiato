@@ -6,7 +6,7 @@ var fs = require('fs'),
 
 
 
-var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/git/bottiato/json/battiato-beats.json', 'utf8'));
+var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/www/bottiato/json/battiato-beats.json', 'utf8'));
 
 var getRandomInt = function (min, max) {
     min = Math.ceil(min);
