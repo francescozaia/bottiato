@@ -8,11 +8,9 @@ var fs = require('fs'),
 
 var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/www/bottiato/json/battiato-beats.json', 'utf8'));
 
-var getRandomInt = function (min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-};
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}
 
 var getRandomTime = function() {
     return Math.floor(Math.random() * (4000 - 1000)) + 1000;
@@ -72,7 +70,7 @@ module.exports = {
         voice.sendTypingOn(recipientId);
         setTimeout(function() {
             voice.sendTypingOff(recipientId);
-            var selectedImage = getRandomInt(1, 11);
+            var selectedImage = getRandomInt(1, 13);
             var txt = battiatoBeatsObject["descrizioniGif"][selectedImage];
             var immagine = "https://secure.canecanuto.com/" + selectedImage + ".gif";
 
@@ -84,7 +82,7 @@ module.exports = {
         voice.sendTypingOn(recipientId);
         setTimeout(function() {
             voice.sendTypingOff(recipientId);
-            var selectedImage = getRandomInt(1, 47);
+            var selectedImage = getRandomInt(1, 46);
             var txt = battiatoBeatsObject["descrizioniImmagini"][selectedImage];
             var immagine = "https://secure.canecanuto.com/" + selectedImage + ".jpg";
 
