@@ -78,11 +78,11 @@ var certificate = fs.readFileSync("/home/gituser/letsencrypt/live/secure.canecan
 var chain = fs.readFileSync("/home/gituser/letsencrypt/live/secure.canecanuto.com/chain.pem").toString();
 
 // Create an HTTP service.
-http.createServer(app).listen(3000);
+// http.createServer(app).listen(80);
 // Create an HTTPS service identical to the HTTP service.
-/*https.createServer({
+https.createServer({
     key: privateKey,
     cert: certificate
-}, app).listen(443);*/
+}, app).listen(443);
 
 messenger.sendGreetingText();
