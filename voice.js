@@ -17,7 +17,7 @@ module.exports = {
                 json: true
             }, function (error, response, body) {
                 if (!error && response.statusCode === 200) {
-                    console.log('Hi ' + body.first_name);
+                    //console.log('Hi ' + body.first_name);
                     resolve(body.first_name, id)
                 } else {
                     return reject(error)
@@ -30,7 +30,7 @@ module.exports = {
         var greetingData = {
             setting_type: "greeting",
             greeting: {
-                text: "Ave a te {{user_first_name}}, come ti senti oggi?"
+                text: "Ciao {{user_first_name}}, che mi racconti?"
             }
         };
         callSendThreadSettings(greetingData);
