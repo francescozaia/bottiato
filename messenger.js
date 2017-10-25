@@ -4,8 +4,6 @@ var fs = require('fs'),
     mongo = require('./mongo.js');
 
 
-
-
 var battiatoBeatsObject = JSON.parse(fs.readFileSync('/home/gituser/www/bottiato/json/battiato-beats.json', 'utf8'));
 
 function getRandomInt(min, max) {

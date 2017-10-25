@@ -2,7 +2,9 @@ var request = require('request');
 var callSendAPI = require('./sender/callSendAPI.js');
 var callSendThreadSettings = require('./sender/callThreadSettingsAPI.js');
 
-var ACCESS_TOKEN = 'EAAawiwbXgjMBAD1AsneZBclfVpKiO5tEMmIvOxrro0ahgdicJARxiCg8QKlWgNvBtIrqiwZC4ZC7GwfMschadRdDtalTjFY8G8N9Ar4cRZCinTIAL1CPAZBuLIkQ6k3nrLoq0ncPd90yXuxQm4UsPZBraZCINZAz0GUUYHdD00PhzAZDZD';
+var PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
+    (process.env.MESSENGER_PAGE_ACCESS_TOKEN) :
+    '';
 
 module.exports = {
 
@@ -12,7 +14,7 @@ module.exports = {
                 url: 'https://graph.facebook.com/v2.6/' + id,
                 qs: {
                     fields: "first_name,last_name,profile_pic,locale,timezone,gender",
-                    access_token: ACCESS_TOKEN
+                    access_token: PAGE_ACCESS_TOKEN
                 },
                 json: true
             }, function (error, response, body) {
